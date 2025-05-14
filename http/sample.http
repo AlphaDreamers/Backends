@@ -1,0 +1,30 @@
+# marketplace.http
+# HTTP requests for interacting with the marketplace API
+# Sample UUIDs included for demonstration
+
+### Create a new gig
+POST http://localhost:3000/gigs
+Content-Type: application/json
+
+{
+  "user_id": "12239bd62-0e8d-4bda-a936-795b46fc252b",
+  "category_id": "223e4567-e89b-12d3-a456-426614174001",
+  "title": "Custom Web Development",
+  "description": "Build a custom website with modern technologies",
+  "tag_ids": ["323e4567-e89b-12d3-a456-426614174002", "423e4567-e89b-12d3-a456-426614174003"]
+}
+
+### Place an order
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "buyer_id": "523e4567-e89b-12d3-a456-426614174004",
+  "seller_id": "123e4567-e89b-12d3-a456-426614174000",
+  "gig_id": "623e4567-e89b-12d3-a456-426614174005",
+  "price": 20.0
+}
+
+### Get user profile
+GET http://localhost:3000/users/123e4567-e89b-12d3-a456-426614174000
+Accept: application/json

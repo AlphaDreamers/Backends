@@ -1,0 +1,32 @@
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: swan
+      POSTGRES_PASSWORD: swanhtet
+      POSTGRES_DB: appDatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    restart: always
+
+  redis:
+    image: redis:latest
+    container_name: redis-container
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+    restart: always
+
+volumes:
+  postgres-data:
+
+networks:
+  app-network:
+    driver: bridge
