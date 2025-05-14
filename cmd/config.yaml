@@ -4,7 +4,7 @@ app:
 log:
   dir: "./logs"
   file: "./logs/app.log"
-  max_size: 10 
+  max_size: 10
   max_backups: 3
   max_age: 28
   compress: true
@@ -29,7 +29,7 @@ aws:
     url: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_86rLqWz2S/.well-known/openid-configuration"
   rds:
     dsn: "host=database-1.cm9ewocwci8f.us-east-1.rds.amazonaws.com user=postgres password=Swanhtetaungphyo dbname=postgres port=5432 sslmode=require"
-    local: "host=localhost user=postgres password=postgres dbname=auth sslmode=disable"
+    local: "host=localhost user=postgres password=postgres dbname=appDatabase sslmode=disable"
 
 auth:
   port: "30011"
@@ -144,3 +144,15 @@ user:
   certificate:
     cert: "/certificates/cert.pem"
     key: "/certificates/key.pem"
+
+database:
+  host: localhost
+  port: 5432
+  user: postgres
+  password: postgres  # Make sure this matches your actual PostgreSQL password
+  name: appDatabase
+  sslmode: disable
+  max_attempts: 5
+  max_idle_conns: 10
+  max_open_conns: 100
+  conn_max_lifetime: 1h

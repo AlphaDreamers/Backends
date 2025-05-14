@@ -15,16 +15,10 @@ import (
 // ServerStateModule defines the Fx module for the user server
 var ServerStateModule = fx.Module("user",
 	fx.Provide(
-		fx.Annotate(
-			NewServerState,
-			fx.ResultTags(`name:"user"`), // Tag to distinguish this *fiber.App
-		),
+		NewServerState,
 	),
 	fx.Invoke(
-		fx.Annotate(
-			RegisterLifeCycle,
-			fx.ParamTags(`name:"user"`), // Match the tagged *fiber.App
-		),
+		RegisterLifeCycle,
 	),
 )
 

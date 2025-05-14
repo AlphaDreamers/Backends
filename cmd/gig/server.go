@@ -15,16 +15,10 @@ import (
 // ServerStateModule defines the Fx module for the gig server
 var ServerStateModule = fx.Module("gig",
 	fx.Provide(
-		fx.Annotate(
-			NewServerState,
-			fx.ResultTags(`name:"gig"`), // Tag to distinguish this *fiber.App
-		),
+		NewServerState,
 	),
 	fx.Invoke(
-		fx.Annotate(
-			RegisterLifeCycle,
-			fx.ParamTags(`name:"gig"`), // Match the tagged *fiber.App
-		),
+		RegisterLifeCycle,
 	),
 )
 

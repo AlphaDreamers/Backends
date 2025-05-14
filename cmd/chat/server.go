@@ -15,16 +15,10 @@ import (
 // ServerStateModule defines the Fx module for the chat server
 var ServerStateModule = fx.Module("chat",
 	fx.Provide(
-		fx.Annotate(
-			NewServerState,
-			fx.ResultTags(`name:"chat"`), // Tag to distinguish this *fiber.App
-		),
+		NewServerState,
 	),
 	fx.Invoke(
-		fx.Annotate(
-			RegisterLifeCycle,
-			fx.ParamTags(`name:"chat"`), // Match the tagged *fiber.App
-		),
+		RegisterLifeCycle,
 	),
 )
 

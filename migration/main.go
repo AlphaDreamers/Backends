@@ -34,4 +34,3 @@ func InitDB(v *viper.Viper) (*gorm.DB, error) {
 
 	return db, nil
 }
- 

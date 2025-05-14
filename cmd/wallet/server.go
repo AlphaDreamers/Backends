@@ -15,16 +15,10 @@ import (
 // ServerStateModule defines the Fx module for the wallet server
 var ServerStateModule = fx.Module("wallet",
 	fx.Provide(
-		fx.Annotate(
-			NewServerState,
-			fx.ResultTags(`name:"wallet"`), // Tag to distinguish this *fiber.App
-		),
+		NewServerState,
 	),
 	fx.Invoke(
-		fx.Annotate(
-			RegisterLifeCycle,
-			fx.ParamTags(`name:"wallet"`), // Match the tagged *fiber.App
-		),
+		RegisterLifeCycle,
 	),
 )
 

@@ -1,4 +1,3 @@
-// main.go
 package main
 
 import (
@@ -11,6 +10,9 @@ import (
 	"github.com/SwanHtetAungPhyo/backend/cmd/provider"
 	"github.com/SwanHtetAungPhyo/backend/cmd/user"
 	"github.com/SwanHtetAungPhyo/backend/cmd/wallet"
+	ah "github.com/SwanHtetAungPhyo/backend/internal/handler/auth"
+	ar "github.com/SwanHtetAungPhyo/backend/internal/repo/auth"
+	as "github.com/SwanHtetAungPhyo/backend/internal/service/auth"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"go.uber.org/fx"
@@ -56,7 +58,10 @@ func LoadConfig() *viper.Viper {
 func main() {
 	app := fx.New(
 		fx.Provide(LoadConfig),
-		fx.Provide(provider.SetLogger),
+		provider.ProviderModule,
+		fx.Provide(as.NewService),
+		fx.Provide(ar.NewRepository),
+		fx.Provide(ah.NewHandler),
 		auth.ServerStateModule,
 		chat.ServerStateModule,
 		gig.ServerStateModule,
@@ -82,20 +87,12 @@ func main() {
 	go func() {
 		<-stop
 		if err := app.Stop(context.Background()); err != nil {
-			_, err2 := fmt.Fprintf(os.Stderr, "Failed to stop app: %v\n", err)
-			if err2 != nil {
-				fmt.Printf("Failed to stop app: %v\n", err.Error())
-				return
-			}
+			fmt.Fprintf(os.Stderr, "Failed to stop app: %v\n", err)
 		}
 	}()
 
 	if err := app.Start(context.Background()); err != nil {
-		_, err2 := fmt.Fprintf(os.Stderr, "Failed to start app: %v\n", err)
-		if err2 != nil {
-			fmt.Printf("Failed to start app: %v\n", err.Error())
-			return
-		}
+		fmt.Fprintf(os.Stderr, "Failed to start app: %v\n", err)
 		os.Exit(1)
 	}
 

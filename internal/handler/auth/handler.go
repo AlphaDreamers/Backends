@@ -1,141 +1,240 @@
 package auth
 
 import (
+	"context"
 	"github.com/SwanHtetAungPhyo/backend/internal/model"
-	"github.com/SwanHtetAungPhyo/backend/internal/service/auth"
+	ar "github.com/SwanHtetAungPhyo/backend/internal/repo/auth"
+	sa "github.com/SwanHtetAungPhyo/backend/internal/service/auth"
+	"github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider"
+	"github.com/aws/aws-sdk-go-v2/service/rekognition"
+	"github.com/aws/aws-sdk-go-v2/service/textract"
 	"github.com/gofiber/fiber/v2"
 	"github.com/sirupsen/logrus"
-	"net/http"
+	"github.com/spf13/viper"
+	"time"
 )
 
+type Handler struct {
+	log                *logrus.Logger
+	cognitoClient      *cognitoidentityprovider.Client
+	rekognitiionClient *rekognition.Client
+	textractClient     *textract.Client
+	repo               *ar.Repository
+	srv                *sa.Service
+	ctx                context.Context
+	clientId           string
+	v                  *viper.Viper
+}
+
 func NewHandler(
-	srv auth.Service,
+	cognitoClient *cognitoidentityprovider.Client,
+	rekognitiionClient *rekognition.Client,
+	textractClient *textract.Client,
+	repo *ar.Repository,
+	srv *sa.Service,
 	log *logrus.Logger,
+	v *viper.Viper,
 ) *Handler {
 	return &Handler{
-		srv: srv,
-		log: log,
+		log:                log,
+		cognitoClient:      cognitoClient,
+		rekognitiionClient: rekognitiionClient,
+		textractClient:     textractClient,
+		repo:               repo,
+		ctx:                context.Background(),
+		clientId:           v.GetString("client_id"),
+		srv:                srv,
+		v:                  v,
 	}
 }
-
-type Handler struct {
-	srv auth.Service
-	log *logrus.Logger
-}
-
-func (h Handler) SignIn(ctx *fiber.Ctx) error {
-	var req *model.UserSignInReq
-	if err := ctx.BodyParser(&req); err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(model.ErrorResp{
+func (h Handler) SignUp(c *fiber.Ctx) error {
+	var req *model.UserSignUpRequest
+	if err := c.BodyParser(&req); err != nil {
+		return c.JSON(model.Response{
 			Message: err.Error(),
 		})
 	}
-	ctx.Cookie(&fiber.Cookie{
+	err := h.srv.SignUp(req)
+	if err != nil {
+		return c.JSON(model.Response{
+			Message: err.Error(),
+		})
+	}
+	return c.JSON(model.Response{
+		Message: "Email verification code is send to the email that u used in the sign up ",
+	})
+}
+
+func (h Handler) SignIn(c *fiber.Ctx) error {
+	var req *model.UserSignInReq
+	if err := c.BodyParser(&req); err != nil {
+		return c.JSON(model.Response{
+			Message: err.Error(),
+		})
+	}
+	userData, respFromC, err := h.srv.SignIn(req)
+	if err != nil {
+		return c.JSON(model.Response{
+			Message: err.Error(),
+		})
+	}
+	c.Cookie(&fiber.Cookie{
 		Name:     "refresh_token",
-		Value:    "",
-		Path:     "/",
-		Domain:   ctx.Hostname(),
+		Value:    *respFromC.AuthenticationResult.RefreshToken,
 		Secure:   true,
 		HTTPOnly: true,
-		SameSite: string(rune(http.SameSiteLaxMode)),
+		MaxAge:   time.Now().Add(time.Hour * 24 * 365 * 10).Minute(),
 	})
 
-	return ctx.Status(fiber.StatusOK).JSON(&model.UserSignInResp{})
+	//userData.AccessToken = model.AccessToken{
+	//	AccessToken: *respFromC.AuthenticationResult.AccessToken,
+	//}
+	//userData.IdTOKEN = model.IdTOKEN{
+	//	IdToken: *respFromC.AuthenticationResult.IdToken,
+	//}
+	return c.JSON(model.Response{
+		Message: "OK",
+		Data:    userData,
+	})
 }
 
-func (h Handler) SignUp(ctx *fiber.Ctx) error {
-	var req *model.UserSignUpRequest
-	if err := ctx.BodyParser(&req); err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(model.ErrorResp{
-			Message: err.Error(),
-		})
-	}
-	return ctx.Status(fiber.StatusOK).JSON(&model.UserSignUpResp{})
-}
-
-func (h Handler) Logout(ctx *fiber.Ctx) error {
-	var req *model.UserLogoutRequest
-	if err := ctx.BodyParser(&req); err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(model.ErrorResp{
-			Message: err.Error(),
-		})
-	}
-
-	ctx.ClearCookie("refresh_token")
-	return ctx.Status(fiber.StatusOK).JSON(model.Response{})
-}
-
-func (h Handler) VerifyEmail(ctx *fiber.Ctx) error {
+func (h Handler) Confirm(c *fiber.Ctx) error {
 	var req *model.EmailVerificationRequest
-	if err := ctx.BodyParser(&req); err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(model.ErrorResp{
+	if err := c.BodyParser(&req); err != nil {
+		return c.JSON(model.Response{
 			Message: err.Error(),
 		})
 	}
-	return ctx.Status(fiber.StatusOK).JSON(model.Response{})
+	err := h.srv.Confirm(req)
+	if err != nil {
+		return c.JSON(model.Response{
+			Message: err.Error(),
+		})
+	}
+	return c.JSON(model.Response{
+		Message: "OK",
+	})
 }
 
-func (h Handler) ForgotPassword(ctx *fiber.Ctx) error {
-	var req *model.ForgotPasswordRequest
-	if err := ctx.BodyParser(&req); err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(model.ErrorResp{
+func (h Handler) ResendConfirmation(c *fiber.Ctx) error {
+	email := c.Params("email")
+	if email == "" {
+		return c.JSON(model.Response{
+			Message: "Please provide a valid email address",
+		})
+	}
+	err := h.srv.ResendConfirmation(email)
+	if err != nil {
+		return c.JSON(model.Response{
 			Message: err.Error(),
 		})
 	}
-	return ctx.Status(fiber.StatusOK).JSON(model.Response{})
+	return c.JSON(model.Response{
+		Message: "Confirm code is resend",
+	})
+}
+
+func (h Handler) ForgotPassword(c *fiber.Ctx) error {
+	var req model.ForgotPasswordRequest
+	if err := c.BodyParser(&req); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid request data",
+		})
+	}
+	err := h.srv.ForgotPassword(req.Email)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Password reset instructions sent to email",
+	})
+}
+
+// ResetPasswordConfirm handler to confirm the new password
+func (h Handler) ResetPasswordConfirm(c *fiber.Ctx) error {
+	var req model.ResetPasswordRequest
+	if err := c.BodyParser(&req); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid request data",
+		})
+	}
+
+	err := h.srv.ResetPasswordConfirm(req.Email, req.Code, req.Password)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Password successfully reset",
+	})
+}
+
+// Logout handler to log the user out
+func (h Handler) Logout(c *fiber.Ctx) error {
+	accessToken := c.Get("Authorization")
+	if accessToken == "" {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"error": "Missing access token",
+		})
+	}
+
+	err := h.srv.Logout(accessToken)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Logged out successfully",
+	})
+}
+
+func (h Handler) KYCVerify(c *fiber.Ctx) error {
+	email := c.Params("email")
+	if email == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Email address is required in the param",
+		})
+	}
+	form, err := c.MultipartForm()
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+	files := form.File["files"]
+	if len(files) == 0 {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "No files to verify",
+		})
+	}
+
+	verification, err := h.srv.KYCVerification(files, email)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(model.Response{
+			Message: err.Error(),
+		})
+	}
+	return c.Status(fiber.StatusOK).JSON(model.Response{
+		Message: "KYC verification success",
+		Data:    verification,
+	})
+}
+
+func (h Handler) Me(c *fiber.Ctx) error {
+	return c.JSON(model.Response{
+		Message: "OK",
+	})
 }
 
 func (h Handler) ForgotPasswordConfirm(ctx *fiber.Ctx) error {
-	var req *model.ForgotPasswordRequest
-	if err := ctx.BodyParser(&req); err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(model.ErrorResp{
-			Message: err.Error(),
-		})
-	}
-	return ctx.Status(fiber.StatusOK).JSON(model.Response{
-		Message: "you will get the forgot password code to the email that you registered",
+	return ctx.JSON(model.Response{
+		Message: "OK",
 	})
-}
-
-func (h Handler) Me(ctx *fiber.Ctx) error {
-	userId := ctx.Params("userId")
-	if userId == "" {
-		return ctx.Status(fiber.StatusBadRequest).JSON(model.ErrorResp{
-			Message: "userId is required",
-		})
-	}
-	return ctx.Status(fiber.StatusOK).JSON(model.Response{
-		Message: "you are logged in",
-	})
-}
-
-func (h Handler) KycVerify(ctx *fiber.Ctx) error {
-	userId := ctx.Params("userId")
-	if userId == "" {
-		return ctx.Status(fiber.StatusBadRequest).JSON(model.ErrorResp{
-			Message: "userId is required in param",
-		})
-	}
-	files, err := ctx.MultipartForm()
-	if err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(model.ErrorResp{
-			Message: err.Error(),
-		})
-	}
-	idPhoto := files.File["id_photo"]
-	if idPhoto == nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(model.ErrorResp{
-			Message: "id_photo is required",
-		})
-	}
-	selfie := files.File["selfie"]
-	if selfie == nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(model.ErrorResp{
-			Message: "selfie is required",
-		})
-	}
-	return ctx.Status(fiber.StatusOK).JSON(model.Response{
-		Message: userId + "!! you kyc is verified",
-	})
-
 }

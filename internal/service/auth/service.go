@@ -11,7 +11,7 @@ import (
 )
 
 type Service struct {
-	repo               auth.Repository
+	repo               *auth.Repository
 	log                *logrus.Logger
 	cognitoClient      *cognitoidentityprovider.Client
 	clientId           string
@@ -23,7 +23,7 @@ type Service struct {
 }
 
 func NewService(
-	repo auth.Repository,
+	repo *auth.Repository,
 	log *logrus.Logger,
 	cognitoClient *cognitoidentityprovider.Client,
 	textractClient *textract.Client,

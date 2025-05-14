@@ -15,16 +15,10 @@ import (
 // ServerStateModule defines the Fx module for the order server
 var ServerStateModule = fx.Module("order",
 	fx.Provide(
-		fx.Annotate(
-			NewServerState,
-			fx.ResultTags(`name:"order"`), // Tag to distinguish this *fiber.App
-		),
+		NewServerState,
 	),
 	fx.Invoke(
-		fx.Annotate(
-			RegisterLifeCycle,
-			fx.ParamTags(`name:"order"`), // Match the tagged *fiber.App
-		),
+		RegisterLifeCycle,
 	),
 )
 

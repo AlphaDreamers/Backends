@@ -4,8 +4,8 @@ services:
     image: postgres:latest
     container_name: postgres-container
     environment:
-      POSTGRES_USER: swan
-      POSTGRES_PASSWORD: swanhtet
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: appDatabase
     ports:
       - "5432:5432"

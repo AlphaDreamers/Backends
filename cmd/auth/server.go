@@ -14,18 +14,8 @@ import (
 )
 
 var ServerStateModule = fx.Module("auth",
-	fx.Provide(
-		fx.Annotate(
-			NewServerState,
-			fx.ResultTags(`name:"auth"`),
-		),
-	),
-	fx.Invoke(
-		fx.Annotate(
-			RegisterLifeCycle,
-			fx.ParamTags(`name:"auth"`),
-		),
-	),
+	fx.Provide(NewServerState),
+	fx.Invoke(RegisterLifeCycle),
 )
 
 type ServerState struct {
