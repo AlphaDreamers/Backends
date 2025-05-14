@@ -32,7 +32,6 @@ func LoadConfig() *viper.Viper {
 	v.SetDefault("log.max_age", 28)
 	v.SetDefault("log.compress", true)
 	v.SetDefault("log.pretty_print", true)
-	// Defaults for each module
 	modules := []string{"auth", "chat", "gig", "wallet", "order", "user"}
 	for i, mod := range modules {
 		v.SetDefault(mod+".port", fmt.Sprintf("300%02d", 11+i))

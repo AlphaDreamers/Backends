@@ -11,40 +11,36 @@ POSTGRES_DSN := host=localhost user=postgres password=postgres dbname=auth sslmo
 POSTGRES_DSN_PROD := host=database-1.cm9ewocwci8f.us-east-1.rds.amazonaws.com user=postgres password=Swanhtetaungphyo dbname=postgres port=5432 sslmode=require
 ENV := development
 
-# Colors for output
 YELLOW := \033[1;33m
 GREEN := \033[1;32m
 RED := \033[1;31m
 NC := \033[0m
 
-# Default target
 .PHONY: all
-all: deps fmt lint test build ## Run all essential development tasks
+all: deps fmt lint test build
 
-# Help documentation
 .PHONY: help
-help: ## Display this help message
+help:
 	@echo "$(YELLOW)Makefile for $(APP_NAME)$(NC)"
 	@echo "Available targets:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "$(GREEN)%-20s$(NC) %s\n", $$1, $$2}'
 
-# Dependency management
 .PHONY: deps
-deps: ## Install Go dependencies
+deps:
 	@echo "$(YELLOW)📦 Installing dependencies...$(NC)"
 	@$(GO) mod tidy
 	@$(GO) mod vendor
 
 .PHONY: deps-update
-deps-update: ## Update Go dependencies to latest versions
+deps-update:
 	@echo "$(YELLOW)🔄 Updating dependencies...$(NC)"
 	@$(GO) get -u ./...
 	@$(GO) mod tidy
 	@$(GO) mod vendor
 
-# Code quality
+
 .PHONY: fmt
-fmt: ## Format Go code
+fmt:
 	@echo "$(YELLOW)🖌️ Formatting code...$(NC)"
 	@$(GO) fmt ./...
 
@@ -146,17 +142,16 @@ docker-stop:
 	@docker rm $(APP_NAME) || true
 	@echo "$(GREEN)✅ Docker container stopped$(NC)"
 
-# Cleaning
+
 .PHONY: clean
-clean: ## Clean build artifacts and coverage files
+clean:
 	@echo "$(YELLOW)🧹 Cleaning up...$(NC)"
 	@rm -f $(BINARY) coverage.out coverage.html
 	@$(GO) clean
 	@echo "$(GREEN)✅ Cleaned$(NC)"
 
-# Mock generation
 .PHONY: mock
-mock: ## Generate mocks for testing
+mock:
 	@echo "$(YELLOW)🤖 Generating mocks...$(NC)"
 	@if ! command -v mockgen >/dev/null; then \
 		echo "$(RED)Error: mockgen not installed. Run 'go install github.com/golang/mock/mockgen@latest'$(NC)"; \
@@ -175,14 +170,14 @@ scan:
 	@trivy fs .
 	@echo "$(GREEN)✅ Security scan completed$(NC)"
 
-# Database utilities
+
 .PHONY: db-connect
-db-connect: ## Connect to local PostgreSQL database
+db-connect:
 	@echo "$(YELLOW)🗄️ Connecting to PostgreSQL...$(NC)"
 	@psql "$(POSTGRES_DSN)"
 
 .PHONY: db-connect-prod
-db-connect-prod: ## Connect to production RDS database
+db-connect-prod:
 	@echo "$(YELLOW)🗄️ Connecting to production RDS...$(NC)"
 	@psql "$(POSTGRES_DSN_PROD)"
 

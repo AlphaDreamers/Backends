@@ -2,6 +2,7 @@ package chat
 
 import (
 	"context"
+	"github.com/SwanHtetAungPhyo/backend/cmd/provider"
 	"os"
 	"time"
 
@@ -37,7 +38,7 @@ func NewServerState(
 	log *logrus.Logger,
 	v *viper.Viper,
 ) *ServerState {
-	fiberApp := providerr.NewFiberApp(v, log, "chat")
+	fiberApp := provider.NewFiberApp(v, log, "chat")
 	// Define a basic endpoint for the chat server
 	fiberApp.Get("/chat/status", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{"status": "chat server running"})

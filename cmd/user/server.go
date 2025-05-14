@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"github.com/SwanHtetAungPhyo/backend/test_mulit/provider"
 	"os"
 	"time"
 
@@ -37,7 +38,7 @@ func NewServerState(
 	log *logrus.Logger,
 	v *viper.Viper,
 ) *ServerState {
-	fiberApp := providerr.NewFiberApp(v, log, "user")
+	fiberApp := provider.NewFiberApp(v, log, "user")
 	// Define a basic endpoint for the user server
 	fiberApp.Get("/user/status", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{"status": "user server running"})

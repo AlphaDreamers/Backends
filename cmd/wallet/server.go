@@ -2,6 +2,7 @@ package wallet
 
 import (
 	"context"
+	"github.com/SwanHtetAungPhyo/backend/cmd/provider"
 	"os"
 	"time"
 
@@ -37,8 +38,8 @@ func NewServerState(
 	log *logrus.Logger,
 	v *viper.Viper,
 ) *ServerState {
-	fiberApp := providerr.NewFiberApp(v, log, "wallet")
-	// Define a basic endpoint for the wallet server
+	fiberApp := provider.NewFiberApp(v, log, "wallet")
+
 	fiberApp.Get("/wallet/status", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{"status": "wallet server running"})
 	})

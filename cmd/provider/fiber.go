@@ -4,13 +4,8 @@ package provider
 import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/csrf"
-	"github.com/gofiber/fiber/v2/middleware/helmet"
-	"github.com/gofiber/fiber/v2/middleware/limiter"
 	flog "github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -59,22 +54,17 @@ func SetLogger(v *viper.Viper) *logrus.Logger {
 	return logger
 }
 
-// NewFiberApp creates a production-ready Fiber app
-func NewFiberApp(v *viper.Viper, logger *logrus.Logger) *fiber.App {
+func NewFiberApp(v *viper.Viper, logger *logrus.Logger, prefix string) *fiber.App {
 	isProduction := v.GetString("app.env") == "production"
 
-	// Fiber configuration
 	app := fiber.New(fiber.Config{
-		DisableStartupMessage: v.GetBool("fiber.disableStartupMessage"),
-		StrictRouting:         v.GetBool("fiber.strictRouting"),
-		CaseSensitive:         v.GetBool("fiber.caseSensitive"),
-		ServerHeader:          v.GetString("fiber.serverHeader"),
-		AppName:               v.GetString("fiber.appName"),
+		DisableStartupMessage: isProduction,
+		ServerHeader:          v.GetString(prefix + ".header"),
+		AppName:               v.GetString(prefix + ".name"),
 		ReduceMemoryUsage:     true,
-		Prefork:               v.GetBool("fiber.prefork") && isProduction,
-		ReadTimeout:           v.GetDuration("fiber.readTimeout"),
-		WriteTimeout:          v.GetDuration("fiber.writeTimeout"),
-		IdleTimeout:           v.GetDuration("fiber.idleTimeout"),
+		ReadTimeout:           v.GetDuration(prefix + ".read_timeout"),
+		WriteTimeout:          v.GetDuration(prefix + ".write_timeout"),
+		IdleTimeout:           v.GetDuration(prefix + ".idle_timeout"),
 		ErrorHandler: func(ctx *fiber.Ctx, err error) error {
 			logger.WithFields(logrus.Fields{
 				"path": ctx.Path(),
@@ -88,46 +78,6 @@ func NewFiberApp(v *viper.Viper, logger *logrus.Logger) *fiber.App {
 	// Middleware: Recover from panics
 	app.Use(recover.New())
 
-	// Middleware: Security headers
-	app.Use(helmet.New())
-
-	// Middleware: CORS
-	app.Use(cors.New(cors.Config{
-		AllowOrigins:     v.GetString("fiber.allowed-origin"),
-		AllowHeaders:     v.GetString("fiber.allowHeaders"),
-		AllowMethods:     v.GetString("fiber.allowMethods"),
-		AllowCredentials: v.GetBool("fiber.allowCredentials"),
-		MaxAge:           86400,
-	}))
-
-	// Middleware: CSRF protection (skip in development)
-	if isProduction {
-		app.Use(csrf.New(csrf.Config{
-			KeyLookup:      "header:X-Csrf-Token",
-			CookieName:     "csrf_",
-			CookieSecure:   true,
-			CookieHTTPOnly: true,
-			CookieSameSite: "Strict",
-			Expiration:     1 * time.Hour,
-			ContextKey:     "csrf",
-			Extractor:      csrf.CsrfFromHeader("X-Csrf-Token"),
-			KeyGenerator:   func() string { return uuid.New().String() },
-		}))
-	}
-
-	app.Use(limiter.New(limiter.Config{
-		Max:        v.GetInt("limiter.max_requests"),
-		Expiration: v.GetDuration("limiter.expiration"),
-		LimitReached: func(c *fiber.Ctx) error {
-			logger.WithFields(logrus.Fields{
-				"ip":   c.IP(),
-				"path": c.Path(),
-			}).Warn("Rate limit exceeded")
-			return fiber.ErrTooManyRequests
-		},
-		SkipFailedRequests: true,
-	}))
-
 	// Middleware: Request logging
 	app.Use(flog.New(flog.Config{
 		Format:     "[${time}] ${status} - ${method} ${path} ${latency}\n",
@@ -135,10 +85,6 @@ func NewFiberApp(v *viper.Viper, logger *logrus.Logger) *fiber.App {
 		TimeZone:   "UTC",
 		Output:     &logrusWriter{logger: logger},
 	}))
-
-	app.Get("/health", func(c *fiber.Ctx) error {
-		return c.JSON(fiber.Map{"status": "ok"})
-	})
 
 	return app
 }

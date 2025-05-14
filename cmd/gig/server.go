@@ -2,6 +2,7 @@ package gig
 
 import (
 	"context"
+	"github.com/SwanHtetAungPhyo/backend/cmd/provider"
 	"os"
 	"time"
 
@@ -37,7 +38,7 @@ func NewServerState(
 	log *logrus.Logger,
 	v *viper.Viper,
 ) *ServerState {
-	fiberApp := providerr.NewFiberApp(v, log, "gig")
+	fiberApp := provider.NewFiberApp(v, log, "gig")
 	// Define a basic endpoint for the gig server
 	fiberApp.Get("/gig/status", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{"status": "gig server running"})
