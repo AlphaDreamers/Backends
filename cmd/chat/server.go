@@ -11,9 +11,21 @@ import (
 	"go.uber.org/fx"
 )
 
-var ServerStateModule = fx.Module("chat", fx.Provide(
-	NewServerState,
-))
+// ServerStateModule defines the Fx module for the chat server
+var ServerStateModule = fx.Module("chat",
+	fx.Provide(
+		fx.Annotate(
+			NewServerState,
+			fx.ResultTags(`name:"chat"`), // Tag to distinguish this *fiber.App
+		),
+	),
+	fx.Invoke(
+		fx.Annotate(
+			RegisterLifeCycle,
+			fx.ParamTags(`name:"chat"`), // Match the tagged *fiber.App
+		),
+	),
+)
 
 type ServerState struct {
 	log      *logrus.Logger
@@ -23,9 +35,13 @@ type ServerState struct {
 
 func NewServerState(
 	log *logrus.Logger,
-	fiberApp *fiber.App,
 	v *viper.Viper,
 ) *ServerState {
+	fiberApp := providerr.NewFiberApp(v, log, "chat")
+	// Define a basic endpoint for the chat server
+	fiberApp.Get("/chat/status", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{"status": "chat server running"})
+	})
 	return &ServerState{
 		log:      log,
 		fiberApp: fiberApp,
@@ -35,15 +51,21 @@ func NewServerState(
 
 func (s *ServerState) Start() error {
 	pwd, _ := os.Getwd()
-	cert := pwd + s.v.GetString("fiber.certificate.cert")
-	key := pwd + s.v.GetString("fiber.certificate.key")
-	port := s.v.GetString("fiber.port")
+	cert := pwd + s.v.GetString("chat.certificate.cert")
+	key := pwd + s.v.GetString("chat.certificate.key")
+	port := s.v.GetString("chat.port")
 
 	s.log.Infof("Starting chat server on port %s...", port)
 
 	go func() {
-		if err := s.fiberApp.ListenTLS(":" + port, cert, key); err != nil {
-			s.log.Errorf("Failed to start server: %v", err)
+		if s.v.GetString("app.env") == "production" {
+			if err := s.fiberApp.ListenTLS(":"+port, cert, key); err != nil {
+				s.log.Errorf("Failed to start chat server: %v", err)
+			}
+		} else {
+			if err := s.fiberApp.Listen(":" + port); err != nil {
+				s.log.Errorf("Failed to start chat server: %v", err)
+			}
 		}
 	}()
 	return nil
@@ -64,8 +86,8 @@ func (s *ServerState) Stop() error {
 	return nil
 }
 
-// Register lifecycle with fx using fx.Hook
-func RegisterLifechatCycle(lc fx.Lifecycle, s *ServerState) {
+// RegisterLifeCycle registers the lifecycle with Fx
+func RegisterLifeCycle(lc fx.Lifecycle, s *ServerState) {
 	lc.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
 			s.log.Infof("Starting chat lifecycle...")

@@ -49,7 +49,7 @@ fmt: ## Format Go code
 	@$(GO) fmt ./...
 
 .PHONY: lint
-lint: ## Run golangci-lint
+lint:
 	@echo "$(YELLOW)🔍 Running linter...$(NC)"
 	@if ! command -v $(GOLANGCI_LINT) >/dev/null; then \
 		echo "$(RED)Error: golangci-lint not installed. Run 'go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest'$(NC)"; \
@@ -58,51 +58,48 @@ lint: ## Run golangci-lint
 	@$(GOLANGCI_LINT) run --timeout=5m
 
 .PHONY: vet
-vet: ## Run go vet
+vet:
 	@echo "$(YELLOW)🔎 Vetting code...$(NC)"
 	@$(GO) vet ./...
 
-# Testing
 .PHONY: test
-test: ## Run tests with coverage
+test:
 	@echo "$(YELLOW)🧪 Running tests...$(NC)"
 	@$(GO) test -v -coverprofile=coverage.out ./...
 	@$(GO) tool cover -func=coverage.out
 
 .PHONY: test-html
-test-html: ## Run tests and generate HTML coverage report
+test-html:
 	@echo "$(YELLOW)🧪 Running tests with HTML coverage...$(NC)"
 	@$(GO) test -v -coverprofile=coverage.out ./...
 	@$(GO) tool cover -html=coverage.out -o coverage.html
 	@echo "$(GREEN)✅ Coverage report generated: coverage.html$(NC)"
 
-# Building
 .PHONY: build
-build: ## Build the binary
+build:
 	@echo "$(YELLOW)🏗️ Building binary...$(NC)"
 	@CGO_ENABLED=0 $(GO) build -o $(BINARY) main.go
 	@echo "$(GREEN)✅ Binary built: $(BINARY)$(NC)"
 
 .PHONY: build-prod
-build-prod: ## Build the binary for production
+build-prod:
 	@echo "$(YELLOW)🏗️ Building production binary...$(NC)"
 	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GO) build -ldflags="-s -w" -o $(BINARY) main.go
 	@echo "$(GREEN)✅ Production binary built: $(BINARY)$(NC)"
 
-# Running
 .PHONY: run
-run: ## Run the application in development mode
+run:
 	@echo "$(YELLOW)🚀 Starting application (development)...$(NC)"
 	@APP_ENV=$(ENV) APP_POSTGRES_DSN=$(POSTGRES_DSN) $(GO) run main.go
 
 .PHONY: run-prod
-run-prod: ## Run the application in production mode
+run-prod:
 	@echo "$(YELLOW)🚀 Starting application (production)...$(NC)"
 	@APP_ENV=production APP_POSTGRES_DSN=$(POSTGRES_DSN_PROD) ./$(BINARY)
 
-# Database migration
+
 .PHONY: migrate
-migrate: ## Run database migrations
+migrate:
 	@echo "$(YELLOW)🗄️ Migrating database tables...$(NC)"
 	@if [ ! -d "$(MIGRATION_DIR)" ]; then \
 		echo "$(RED)Error: Migration directory $(MIGRATION_DIR) not found$(NC)"; \
@@ -111,9 +108,8 @@ migrate: ## Run database migrations
 	@APP_ENV=$(ENV) APP_POSTGRES_DSN=$(POSTGRES_DSN) $(GO) run $(MIGRATION_DIR)/models.go $(MIGRATION_DIR)/mock_data.go $(MIGRATION_DIR)/migrate.go
 	@echo "$(GREEN)✅ Database migration completed$(NC)"
 
-# Git operations
 .PHONY: git-cycle
-git-cycle: ## Run git cycle (add, commit, pull, push) with unrelated histories handling
+git-cycle:
 	@echo "$(YELLOW)🔄 Running git cycle...$(NC)"
 	@git add .
 	@if git diff --staged --quiet; then \
@@ -127,15 +123,15 @@ git-cycle: ## Run git cycle (add, commit, pull, push) with unrelated histories h
 	@git push origin main || { echo "$(RED)❌ Push failed$(NC)"; exit 1; }
 	@echo "$(GREEN)✅ Git cycle completed$(NC)"
 
-# Docker support
+
 .PHONY: docker-build
-docker-build: ## Build Docker image
+docker-build:
 	@echo "$(YELLOW)🐳 Building Docker image...$(NC)"
 	@docker build -t $(DOCKER_IMAGE) .
 	@echo "$(GREEN)✅ Docker image built: $(DOCKER_IMAGE)$(NC)"
 
 .PHONY: docker-run
-docker-run: ## Run Docker container
+docker-run:
 	@echo "$(YELLOW)🐳 Running Docker container...$(NC)"
 	@docker run -p $(PORT):$(PORT) \
 		-e APP_ENV=$(ENV) \
@@ -144,7 +140,7 @@ docker-run: ## Run Docker container
 	@echo "$(GREEN)✅ Docker container running on port $(PORT)$(NC)"
 
 .PHONY: docker-stop
-docker-stop: ## Stop and remove Docker container
+docker-stop:
 	@echo "$(YELLOW)🐳 Stopping Docker container...$(NC)"
 	@docker stop $(APP_NAME) || true
 	@docker rm $(APP_NAME) || true
@@ -169,9 +165,8 @@ mock: ## Generate mocks for testing
 	@mockgen -source=main.go -destination=mocks/mock_main.go -package=mocks
 	@echo "$(GREEN)✅ Mocks generated$(NC)"
 
-# Security scanning
 .PHONY: scan
-scan: ## Run security scan with trivy
+scan:
 	@echo "$(YELLOW)🔒 Running security scan...$(NC)"
 	@if ! command -v trivy >/dev/null; then \
 		echo "$(RED)Error: trivy not installed. Install via 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh'$(NC)"; \
@@ -191,9 +186,9 @@ db-connect-prod: ## Connect to production RDS database
 	@echo "$(YELLOW)🗄️ Connecting to production RDS...$(NC)"
 	@psql "$(POSTGRES_DSN_PROD)"
 
-# Development utilities
+
 .PHONY: watch
-watch: ## Run application with hot reload using air
+watch:
 	@echo "$(YELLOW)👀 Starting application with hot reload...$(NC)"
 	@if ! command -v air >/dev/null; then \
 		echo "$(RED)Error: air not installed. Run 'go install github.com/cosmtrek/air@latest'$(NC)"; \
@@ -202,7 +197,7 @@ watch: ## Run application with hot reload using air
 	@APP_ENV=$(ENV) APP_POSTGRES_DSN=$(POSTGRES_DSN) air
 
 .PHONY: generate
-generate: ## Run go generate
+generate:
 	@echo "$(YELLOW)⚙️ Running go generate...$(NC)"
 	@$(GO) generate ./...
 	@echo "$(GREEN)✅ Generation completed$(NC)"

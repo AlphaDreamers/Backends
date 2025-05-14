@@ -1,0 +1,25 @@
+# config.yaml
+app:
+  env: development
+log:
+  dir: "./logs"
+  file: "./logs/app.log"
+  max_size: 10
+  max_backups: 3
+  max_age: 28
+  compress: true
+  pretty_print: true
+server1:
+  port: "30011"
+  name: "HealthServer"
+  header: "health-server"
+  read_timeout: "10s"
+  write_timeout: "10s"
+  idle_timeout: "120s"
+server2:
+  port: "30012"
+  name: "PingServer"
+  header: "ping-server"
+  read_timeout: "10s"
+  write_timeout: "10s"
+  idle_timeout: "120s"

@@ -1,24 +1,22 @@
 app:
   env: development
-fiber:
-  disableStartupMessage: false
-  prefork: false
-  caseSensitive: true
-  strictRouting: true
-  allowed-origin: "*"
-  allowHeaders: "Origin, Content-Type, Accept, X-Csrf-Token"
-  allowMethods: "GET, POST, PUT, DELETE, OPTIONS"
-  allowCredentials: true
-  serverHeader: "auth-cognito"
-  appName: "authWithCognito"
-  port: "30011"
-  idleTimeout: "120s"
-  readTimeout: "10s"
-  writeTimeout: "10s"
-  cert: "/certificates/cert.pem"
-  key: "/certificates/key.pem"
-  auth:
-    port: "8001"
+
+log:
+  dir: "./logs"
+  file: "./logs/app.log"
+  max_size: 10 
+  max_backups: 3
+  max_age: 28
+  compress: true
+  pretty_print: true
+
+limiter:
+  max_requests: 100
+  expiration: 1m
+
+client:
+  timeout: 30s
+
 aws:
   cognito:
     client-id: "7qllcjjcq7p506kq88vkfiu92g"
@@ -32,16 +30,117 @@ aws:
   rds:
     dsn: "host=database-1.cm9ewocwci8f.us-east-1.rds.amazonaws.com user=postgres password=Swanhtetaungphyo dbname=postgres port=5432 sslmode=require"
     local: "host=localhost user=postgres password=postgres dbname=auth sslmode=disable"
-limiter:
-  max_requests: 100
-  expiration: 1m
-log:
-  dir: "./logs"
-  file: "./logs/app.log"
-  max_size: 10 # MB
-  max_backups: 3
-  max_age: 28 # days
-  compress: true
-  pretty_print: true
-client:
-  timeout: 30s
+
+auth:
+  port: "30011"
+  name: "AuthServer"
+  header: "auth-cognito"
+  disableStartupMessage: false
+  prefork: false
+  caseSensitive: true
+  strictRouting: true
+  allowed-origin: "*"
+  allowHeaders: "Origin, Content-Type, Accept, X-Csrf-Token"
+  allowMethods: "GET, POST, PUT, DELETE, OPTIONS"
+  allowCredentials: true
+  read_timeout: "10s"
+  write_timeout: "10s"
+  idle_timeout: "120s"
+  certificate:
+    cert: "/certificates/cert.pem"
+    key: "/certificates/key.pem"
+
+chat:
+  port: "30012"
+  name: "ChatServer"
+  header: "chat-server"
+  disableStartupMessage: false
+  prefork: false
+  caseSensitive: true
+  strictRouting: true
+  allowed-origin: "*"
+  allowHeaders: "Origin, Content-Type, Accept"
+  allowMethods: "GET, POST, PUT, DELETE, OPTIONS"
+  allowCredentials: true
+  read_timeout: "10s"
+  write_timeout: "10s"
+  idle_timeout: "120s"
+  certificate:
+    cert: "/certificates/cert.pem"
+    key: "/certificates/key.pem"
+
+gig:
+  port: "30013"
+  name: "GigServer"
+  header: "gig-server"
+  disableStartupMessage: false
+  prefork: false
+  caseSensitive: true
+  strictRouting: true
+  allowed-origin: "*"
+  allowHeaders: "Origin, Content-Type, Accept, X-Csrf-Token"
+  allowMethods: "GET, POST, PUT, DELETE, OPTIONS"
+  allowCredentials: true
+  read_timeout: "10s"
+  write_timeout: "10s"
+  idle_timeout: "120s"
+  certificate:
+    cert: "/certificates/cert.pem"
+    key: "/certificates/key.pem"
+
+wallet:
+  port: "30014"
+  name: "WalletServer"
+  header: "wallet-server"
+  disableStartupMessage: false
+  prefork: false
+  caseSensitive: true
+  strictRouting: true
+  allowed-origin: "*"
+  allowHeaders: "Origin, Content-Type, Accept"
+  allowMethods: "GET, POST, PUT, DELETE, OPTIONS"
+  allowCredentials: true
+  read_timeout: "10s"
+  write_timeout: "10s"
+  idle_timeout: "120s"
+  certificate:
+    cert: "/certificates/cert.pem"
+    key: "/certificates/key.pem"
+
+order:
+  port: "30015"
+  name: "OrderServer"
+  header: "order-server"
+  disableStartupMessage: false
+  prefork: false
+  caseSensitive: true
+  strictRouting: true
+  allowed-origin: "*"
+  allowHeaders: "Origin, Content-Type, Accept, X-Csrf-Token"
+  allowMethods: "GET, POST, PUT, DELETE, OPTIONS"
+  allowCredentials: true
+  read_timeout: "10s"
+  write_timeout: "10s"
+  idle_timeout: "120s"
+  certificate:
+    cert: "/certificates/cert.pem"
+    key: "/certificates/key.pem"
+
+user:
+  port: "30016"
+  name: "UserServer"
+  header: "user-server"
+  disableStartupMessage: false
+  prefork: false
+  caseSensitive: true
+  strictRouting: true
+  allowed-origin: "*"
+  allowHeaders: "Origin, Content-Type, Accept, X-Csrf-Token"
+  allowMethods: "GET, POST, PUT, DELETE, OPTIONS"
+  allowCredentials: true
+  read_timeout: "10s"
+  write_timeout: "10s"
+  idle_timeout: "120s"
+  certificate:
+    cert: "/certificates/cert.pem"
+    key: "/certificates/key.pem"

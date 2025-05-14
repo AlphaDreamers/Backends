@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-module_names=("auth" "chat" "gig" "wallet" "order")
+module_names=("auth" "chat" "gig" "wallet" "order" "user")
 
 read -r -d '' COMMON_CODE <<EOF
 package {{pkg}}
@@ -16,9 +16,21 @@ import (
 	"go.uber.org/fx"
 )
 
-var ServerStateModule = fx.Module("{{pkg}}", fx.Provide(
-	NewServerState,
-))
+// ServerStateModule defines the Fx module for the {{pkg}} server
+var ServerStateModule = fx.Module("{{pkg}}",
+	fx.Provide(
+		fx.Annotate(
+			NewServerState,
+			fx.ResultTags(\`name:"{{pkg}}"\`), // Tag to distinguish this *fiber.App
+		),
+	),
+	fx.Invoke(
+		fx.Annotate(
+			RegisterLifeCycle,
+			fx.ParamTags(\`name:"{{pkg}}"\`), // Match the tagged *fiber.App
+		),
+	),
+)
 
 type ServerState struct {
 	log      *logrus.Logger
@@ -28,9 +40,13 @@ type ServerState struct {
 
 func NewServerState(
 	log *logrus.Logger,
-	fiberApp *fiber.App,
 	v *viper.Viper,
 ) *ServerState {
+	fiberApp := providerr.NewFiberApp(v, log, "{{pkg}}")
+	// Define a basic endpoint for the {{pkg}} server
+	fiberApp.Get("/{{pkg}}/status", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{"status": "{{pkg}} server running"})
+	})
 	return &ServerState{
 		log:      log,
 		fiberApp: fiberApp,
@@ -40,15 +56,21 @@ func NewServerState(
 
 func (s *ServerState) Start() error {
 	pwd, _ := os.Getwd()
-	cert := pwd + s.v.GetString("fiber.certificate.cert")
-	key := pwd + s.v.GetString("fiber.certificate.key")
-	port := s.v.GetString("fiber.port")
+	cert := pwd + s.v.GetString("{{pkg}}.certificate.cert")
+	key := pwd + s.v.GetString("{{pkg}}.certificate.key")
+	port := s.v.GetString("{{pkg}}.port")
 
 	s.log.Infof("Starting {{pkg}} server on port %s...", port)
 
 	go func() {
-		if err := s.fiberApp.ListenTLS(":" + port, cert, key); err != nil {
-			s.log.Errorf("Failed to start server: %v", err)
+		if s.v.GetString("app.env") == "production" {
+			if err := s.fiberApp.ListenTLS(":" + port, cert, key); err != nil {
+				s.log.Errorf("Failed to start {{pkg}} server: %v", err)
+			}
+		} else {
+			if err := s.fiberApp.Listen(":" + port); err != nil {
+				s.log.Errorf("Failed to start {{pkg}} server: %v", err)
+			}
 		}
 	}()
 	return nil
@@ -69,8 +91,8 @@ func (s *ServerState) Stop() error {
 	return nil
 }
 
-// Register lifecycle with fx using fx.Hook
-func RegisterLife{{pkg}}Cycle(lc fx.Lifecycle, s *ServerState) {
+// RegisterLifeCycle registers the lifecycle with Fx
+func RegisterLifeCycle(lc fx.Lifecycle, s *ServerState) {
 	lc.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
 			s.log.Infof("Starting {{pkg}} lifecycle...")
