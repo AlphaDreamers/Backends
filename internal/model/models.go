@@ -192,3 +192,6 @@ type Order struct {
 	Seller      User      `gorm:"foreignKey:SellerID"`
 	Gig         Gig       `gorm:"foreignKey:GigID"`
 }
+
+type UserData struct {
+}

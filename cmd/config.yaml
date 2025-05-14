@@ -1,33 +1,47 @@
-aws:
-  cognito:
-    client-id: 7qllcjjcq7p506kq88vkfiu92g
-    user-pool-id: us-east-1_86rLqWz2S
-    secret-hash: pdiECwxTn+tgeXBkCoYQyA==
-    token-signing-key-url: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_86rLqWz2S/.well-known/jwks.json
-    client-secret: 1ipuga7399127snjbbgletfpr25lk6hleucb5fptn6nvrefn40ri
-    jwt-issuer-url: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_86rLqWz2S
-  config:
-    url: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_86rLqWz2S/.well-known/openid-configuration
-  rds:
-    dsn: "host=database-1.cm9ewocwci8f.us-east-1.rds.amazonaws.com user=postgres password=Swanhtetaungphyo dbname=postgres port=5432 sslmode=require"
-    local: "host=localhost user=postgres password=postgres dbname=auth sslmode=disable"
-
-
-
+app:
+  env: development
 fiber:
   disableStartupMessage: false
   prefork: false
   caseSensitive: true
   strictRouting: true
   allowed-origin: "*"
+  allowHeaders: "Origin, Content-Type, Accept, X-Csrf-Token"
+  allowMethods: "GET, POST, PUT, DELETE, OPTIONS"
+  allowCredentials: true
   serverHeader: "auth-cognito"
   appName: "authWithCognito"
   port: "30011"
   idleTimeout: "120s"
   readTimeout: "10s"
   writeTimeout: "10s"
-  cert: /certificates/cert.pem
-  key: /certificates/key.pem
+  cert: "/certificates/cert.pem"
+  key: "/certificates/key.pem"
   auth:
     port: "8001"
-
+aws:
+  cognito:
+    client-id: "7qllcjjcq7p506kq88vkfiu92g"
+    user-pool-id: "us-east-1_86rLqWz2S"
+    secret-hash: "pdiECwxTn+tgeXBkCoYQyA=="
+    token-signing-key-url: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_86rLqWz2S/.well-known/jwks.json"
+    client-secret: "1ipuga7399127snjbbgletfpr25lk6hleucb5fptn6nvrefn40ri"
+    jwt-issuer-url: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_86rLqWz2S"
+  config:
+    url: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_86rLqWz2S/.well-known/openid-configuration"
+  rds:
+    dsn: "host=database-1.cm9ewocwci8f.us-east-1.rds.amazonaws.com user=postgres password=Swanhtetaungphyo dbname=postgres port=5432 sslmode=require"
+    local: "host=localhost user=postgres password=postgres dbname=auth sslmode=disable"
+limiter:
+  max_requests: 100
+  expiration: 1m
+log:
+  dir: "./logs"
+  file: "./logs/app.log"
+  max_size: 10 # MB
+  max_backups: 3
+  max_age: 28 # days
+  compress: true
+  pretty_print: true
+client:
+  timeout: 30s
