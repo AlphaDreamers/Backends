@@ -1,0 +1,12 @@
+POST  {{url}}/auth/sign-up
+Content-Type: application/json
+
+{
+  "firstName": "Swan Htet Aung Phyo",
+  "lastName": "One",
+  "username": "Swanhtet12@",
+  "email": "swanhtetaungp@gmail.com",
+  "password": "SecureP@ssw0rd!",
+  "country": "United State USA",
+  "bioMetricHash": "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
+}

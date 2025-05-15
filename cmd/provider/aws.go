@@ -16,7 +16,7 @@ import (
 )
 
 func AwsConfig(v *viper.Viper, log *logrus.Logger) *aws.Config {
-	region := v.GetString("aws.region")
+	region := "us-east-1"
 	accessKey := os.Getenv("ACESS_KEY_ID")
 	secretKey := os.Getenv("SECRECT_ACCESS_KEY")
 	cfg, err := config.LoadDefaultConfig(
