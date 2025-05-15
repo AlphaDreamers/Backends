@@ -4,30 +4,35 @@ buildCommand = "echo Building using Dockerfile..."
 
 [deploy]
 startCommand = ""
-healthcheckPath = "/"
-healthcheckTimeout = 100
-restartPolicy = "on-failure"
+healthcheckDisabled = true
+restartPolicy = "always"
 
 [[ports]]
 port = 8001
 name = "auth"
+internal = false
 
 [[ports]]
 port = 8002
 name = "chat"
+internal = false
 
 [[ports]]
 port = 8003
 name = "wallet"
+internal = false
 
 [[ports]]
 port = 8004
 name = "order"
+internal = false
 
 [[ports]]
 port = 8005
 name = "gig"
+internal = false
 
 [[ports]]
 port = 8006
 name = "user"
+internal = fals
