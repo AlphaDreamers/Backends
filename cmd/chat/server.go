@@ -46,8 +46,8 @@ func NewServerState(
 
 func (s *ServerState) Start() error {
 	pwd, _ := os.Getwd()
-	cert := pwd + s.v.GetString("chat.certificate.cert")
-	key := pwd + s.v.GetString("chat.certificate.key")
+	cert := pwd + s.v.GetString("chat.certificates.cert")
+	key := pwd + s.v.GetString("chat.certificates.key")
 	port := os.Getenv("CHAT_PORT")
 
 	s.log.Infof("Starting chat server on port %s...", port)

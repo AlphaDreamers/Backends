@@ -4,15 +4,11 @@ import (
 	"context"
 	"fmt"
 	"github.com/SwanHtetAungPhyo/backend/cmd/auth"
-	"github.com/SwanHtetAungPhyo/backend/cmd/chat"
-	"github.com/SwanHtetAungPhyo/backend/cmd/gig"
-	"github.com/SwanHtetAungPhyo/backend/cmd/order"
 	"github.com/SwanHtetAungPhyo/backend/cmd/provider"
-	"github.com/SwanHtetAungPhyo/backend/cmd/user"
-	"github.com/SwanHtetAungPhyo/backend/cmd/wallet"
 	ah "github.com/SwanHtetAungPhyo/backend/internal/handler/auth"
 	ar "github.com/SwanHtetAungPhyo/backend/internal/repo/auth"
 	as "github.com/SwanHtetAungPhyo/backend/internal/service/auth"
+	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"go.uber.org/fx"
@@ -42,8 +38,8 @@ func LoadConfig() *viper.Viper {
 		v.SetDefault(mod+".read_timeout", "10s")
 		v.SetDefault(mod+".write_timeout", "10s")
 		v.SetDefault(mod+".idle_timeout", "120s")
-		v.SetDefault(mod+".certificate.cert", "/certificates/cert.pem")
-		v.SetDefault(mod+".certificate.key", "/certificates/key.pem")
+		v.SetDefault(mod+".certificates.cert", "/certificates/cert.pem")
+		v.SetDefault(mod+".certificates.key", "/certificates/key.pem")
 	}
 
 	if err := v.ReadInConfig(); err != nil {
@@ -56,6 +52,9 @@ func LoadConfig() *viper.Viper {
 }
 
 func main() {
+	if err := godotenv.Load(".env"); err != nil {
+		logrus.Fatalf("Error loading .env file: %v", err.Error())
+	}
 	app := fx.New(
 		fx.Provide(LoadConfig),
 		provider.ProviderModule,
@@ -63,11 +62,11 @@ func main() {
 		fx.Provide(ar.NewRepository),
 		fx.Provide(ah.NewHandler),
 		auth.ServerStateModule,
-		chat.ServerStateModule,
-		gig.ServerStateModule,
-		wallet.ServerStateModule,
-		order.ServerStateModule,
-		user.ServerStateModule,
+		//chat.ServerStateModule,
+		//gig.ServerStateModule,
+		//wallet.ServerStateModule,
+		//order.ServerStateModule,
+		//user.ServerStateModule,
 		fx.Invoke(func(logger *logrus.Logger, lc fx.Lifecycle) {
 			lc.Append(fx.Hook{
 				OnStart: func(ctx context.Context) error {

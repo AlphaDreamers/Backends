@@ -46,8 +46,8 @@ func NewServerState(
 
 func (s *ServerState) Start() error {
 	pwd, _ := os.Getwd()
-	cert := pwd + s.v.GetString("wallet.certificate.cert")
-	key := pwd + s.v.GetString("wallet.certificate.key")
+	cert := pwd + s.v.GetString("wallet.certificates.cert")
+	key := pwd + s.v.GetString("wallet.certificates.key")
 	port := s.v.GetString("wallet.port")
 
 	s.log.Infof("Starting wallet server on port %s...", port)

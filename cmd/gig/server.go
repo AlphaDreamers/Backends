@@ -46,8 +46,8 @@ func NewServerState(
 
 func (s *ServerState) Start() error {
 	pwd, _ := os.Getwd()
-	cert := pwd + s.v.GetString("gig.certificate.cert")
-	key := pwd + s.v.GetString("gig.certificate.key")
+	cert := pwd + s.v.GetString("gig.certificates.cert")
+	key := pwd + s.v.GetString("gig.certificates.key")
 	port := os.Getenv("GIG_PORT")
 
 	s.log.Infof("Starting gig server on port %s...", port)

@@ -1336,3 +1336,339 @@
   "severity": "warning",
   "timestamp": "2025-05-15T17:13:09+02:00"
 }
+{
+  "file": "database.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Successfully connected to the database",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:49:20+02:00"
+}
+{
+  "file": "server.go:96",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "Starting auth lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:49:20+02:00"
+}
+{
+  "file": "server.go:51",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "Starting auth server on port ...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:49:20+02:00"
+}
+{
+  "file": "server.go:101",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "auth lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:49:20+02:00"
+}
+{
+  "file": "main.go:69",
+  "func": "main.main.func1.1()",
+  "message": "Application started",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:49:20+02:00"
+}
+                                                                                                                                                                  {
+  "file": "database.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Successfully connected to the database",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:50:38+02:00"
+}
+{
+  "file": "server.go:96",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "Starting auth lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:50:38+02:00"
+}
+{
+  "file": "server.go:50",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "starting auth server on port /Users/swanhtet1aungphyo/GolandProjects/Backends/certificates/key.pem",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:50:38+02:00"
+}
+{
+  "file": "server.go:51",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "Starting auth server on port ...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:50:38+02:00"
+}
+{
+  "file": "server.go:101",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "auth lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:50:38+02:00"
+}
+{
+  "file": "main.go:69",
+  "func": "main.main.func1.1()",
+  "message": "Application started",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:50:38+02:00"
+}
+{
+  "file": "database.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Successfully connected to the database",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:51:12+02:00"
+}
+{
+  "file": "server.go:96",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "Starting auth lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:51:12+02:00"
+}
+{
+  "file": "server.go:50",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "starting auth server on port /Users/swanhtet1aungphyo/GolandProjects/Backends/cmd/auth/certificates/key.pem",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:51:12+02:00"
+}
+{
+  "file": "server.go:51",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "Starting auth server on port ...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:51:12+02:00"
+}
+{
+  "file": "server.go:101",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "auth lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:51:12+02:00"
+}
+{
+  "file": "main.go:69",
+  "func": "main.main.func1.1()",
+  "message": "Application started",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:51:12+02:00"
+}
+{
+  "file": "database.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Successfully connected to the database",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:51:44+02:00"
+}
+{
+  "file": "server.go:96",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "Starting auth lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:51:44+02:00"
+}
+{
+  "file": "server.go:50",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "starting auth server on port /Users/swanhtet1aungphyo/GolandProjects/Backends/cmd/auth/certificates/key.pem",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:51:44+02:00"
+}
+{
+  "file": "server.go:51",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "Starting auth server on port ...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:51:44+02:00"
+}
+{
+  "file": "server.go:101",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "auth lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:51:44+02:00"
+}
+{
+  "file": "main.go:69",
+  "func": "main.main.func1.1()",
+  "message": "Application started",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:51:44+02:00"
+}
+{
+  "file": "database.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Successfully connected to the database",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:52:13+02:00"
+}
+{
+  "file": "server.go:96",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "Starting auth lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:52:13+02:00"
+}
+{
+  "file": "server.go:50",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "starting auth server on port /Users/swanhtet1aungphyo/GolandProjects/Backends/cmd/auth/certificates/key.pem",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:52:13+02:00"
+}
+{
+  "file": "server.go:51",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "Starting auth server on port ...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:52:13+02:00"
+}
+{
+  "file": "server.go:101",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "auth lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:52:13+02:00"
+}
+{
+  "file": "main.go:69",
+  "func": "main.main.func1.1()",
+  "message": "Application started",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:52:13+02:00"
+}
+{
+  "file": "database.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Successfully connected to the database",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:52:43+02:00"
+}
+{
+  "file": "server.go:96",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "Starting auth lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:52:43+02:00"
+}
+{
+  "file": "server.go:50",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "starting auth server on port /Users/swanhtet1aungphyo/GolandProjects/Backends/cmd/auth/certificates/key.pem",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:52:43+02:00"
+}
+{
+  "file": "server.go:51",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "Starting auth server on port ...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:52:43+02:00"
+}
+{
+  "file": "server.go:101",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "auth lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:52:43+02:00"
+}
+{
+  "file": "main.go:69",
+  "func": "main.main.func1.1()",
+  "message": "Application started",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:52:43+02:00"
+}
+{
+  "file": "database.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Successfully connected to the database",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:53:12+02:00"
+}
+{
+  "file": "server.go:96",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "Starting auth lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:53:12+02:00"
+}
+{
+  "file": "server.go:50",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "starting auth server on port /Users/swanhtet1aungphyo/GolandProjects/Backends/cmd/auth/certificates/key.pem",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:53:12+02:00"
+}
+{
+  "file": "server.go:51",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "Starting auth server on port ...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:53:12+02:00"
+}
+{
+  "file": "server.go:101",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "auth lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:53:12+02:00"
+}
+{
+  "file": "main.go:69",
+  "func": "main.main.func1.1()",
+  "message": "Application started",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:53:12+02:00"
+}
+{
+  "file": "main.go:73",
+  "func": "main.main.func1.2()",
+  "message": "Application stopped",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:54:27+02:00"
+}
+{
+  "file": "database.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Successfully connected to the database",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:55:01+02:00"
+}
+{
+  "file": "server.go:96",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "Starting auth lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:55:01+02:00"
+}
+{
+  "file": "server.go:50",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "starting auth server on port /Users/swanhtet1aungphyo/GolandProjects/Backends/cmd/auth/certificates/key.pem",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:55:01+02:00"
+}
+{
+  "file": "server.go:51",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "Starting auth server on port 8001...",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:55:01+02:00"
+}
+{
+  "file": "server.go:101",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "auth lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:55:01+02:00"
+}
+{
+  "file": "main.go:73",
+  "func": "main.main.func1.1()",
+  "message": "Application started",
+  "severity": "info",
+  "timestamp": "2025-05-15T20:55:01+02:00"
+}
