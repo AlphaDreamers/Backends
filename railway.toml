@@ -1,0 +1,11 @@
+version: 2
+services:
+  - type: web
+    name: myapp
+    env: docker
+    region: eu-west
+    plan: starter
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 80
