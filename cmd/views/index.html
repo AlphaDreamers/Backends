@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap">
+    <style>
+        :root {
+            --bg-dark: #0f1116;
+            --bg-card: #1a1d25;
+            --text-primary: #f0f2f5;
+            --text-secondary: #a0a7b8;
+            --accent-primary: #4facfe;
+            --accent-secondary: #00f2fe;
+            --glow-primary: 0 0 20px rgba(79, 172, 254, 0.5);
+            --glow-secondary: 0 0 25px rgba(0, 242, 254, 0.4);
+            --radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-dark);
+            margin: 0;
+            padding: 0;
+        }
+
+        .cover {
+            background: linear-gradient(135deg, rgba(15, 17, 22, 0.9), rgba(26, 29, 37, 0.95)),
+            radial-gradient(circle at 20% 150%, var(--accent-primary) 0%, transparent 60%),
+            radial-gradient(circle at 80% 10%, var(--accent-secondary) 0%, transparent 50%);
+            color: white;
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,0.03)' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.8;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cover h1 {
+            font-size: 3.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--glow-primary);
+            animation: pulse 4s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                text-shadow: 0 0 10px rgba(79, 172, 254, 0.3);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(79, 172, 254, 0.7), 0 0 30px rgba(0, 242, 254, 0.4);
+            }
+        }
+
+        .cover p {
+            font-size: 1.35rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 3rem 1.5rem;
+            max-width: 1000px;
+            margin: -3rem auto 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            box-shadow: var(--glow-primary);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.07), 0 0 20px rgba(79, 172, 254, 0.2);
+        }
+
+        .card h2 {
+            font-size: 1.85rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        .card h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            border-radius: 3px;
+            box-shadow: var(--glow-secondary);
+        }
+
+        .card ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+            list-style: none;
+        }
+
+        .card li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .card li::before {
+            content: "✓";
+            color: var(--accent-primary);
+            font-weight: bold;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            text-shadow: 0 0 8px rgba(79, 172, 254, 0.6);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .card p:last-child {
+            margin-bottom: 0;
+            font-weight: 400;
+        }
+
+        /* Glowing border effect on hover */
+        .card:hover::before {
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.8), 0 0 30px rgba(0, 242, 254, 0.4);
+        }
+
+        /* Subtle background glow */
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: radial-gradient(ellipse at center, rgba(79, 172, 254, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .cover {
+                padding: 5rem 1.5rem;
+            }
+
+            .cover h1 {
+                font-size: 2.5rem;
+            }
+
+            .content {
+                padding: 2rem 1rem;
+                margin-top: -2rem;
+            }
+
+            .card {
+                padding: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cover">
+    <div class="cover-content">
+        <h1>{{.Title}}</h1>
+        <p>{{.Message}}</p>
+    </div>
+</div>
+
+<div class="content">
+    <div class="card">
+        <h2>Why Choose Us?</h2>
+        <p>
+            We are the freelance platform which offers users advanced security and trust with:
+        </p>
+        <ul>
+            <li>KYC (Know Your Customer) verification</li>
+            <li>Biometric identity checks</li>
+            <li>Secure crypto payment support</li>
+        </ul>
+        <p>
+            Empowering freelancers and clients with a modern, transparent, and secure work experience.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1714,3 +1714,160 @@
   "severity": "info",
   "timestamp": "2025-05-15T20:59:18+02:00"
 }
+{
+  "file": "database.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Successfully connected to the database",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:01:45+02:00"
+}
+{
+  "file": "server.go:102",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "Starting auth lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:01:45+02:00"
+}
+{
+  "file": "server.go:56",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "starting auth server on port /Users/swanhtet1aungphyo/GolandProjects/Backends/cmd/auth/certificates/key.pem",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:01:45+02:00"
+}
+{
+  "file": "server.go:107",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "auth lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:01:45+02:00"
+}
+{
+  "file": "main.go:72",
+  "func": "main.main.func1.1()",
+  "message": "Application started",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:01:45+02:00"
+}
+{
+  "file": "provider.go:80",
+  "func": "github.com/SwanHtetAungPhyo/backend/test_mulit/provider.NewFiberApp.func1()",
+  "message": "Request failed: failed to render: render: template index does not exist",
+  "path": "/",
+  "severity": "error",
+  "timestamp": "2025-05-15T22:01:47+02:00"
+}
+{
+  "file": "provider.go:107",
+  "func": "github.com/SwanHtetAungPhyo/backend/test_mulit/provider.(*logrusWriter).Write()",
+  "message": "[2025-05-15T20:01:47Z] 500 - GET /     343.958µs\n",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:01:47+02:00"
+}
+{
+  "file": "provider.go:80",
+  "func": "github.com/SwanHtetAungPhyo/backend/test_mulit/provider.NewFiberApp.func1()",
+  "message": "Request failed: Cannot GET /favicon.ico",
+  "path": "/favicon.ico",
+  "severity": "error",
+  "timestamp": "2025-05-15T22:01:48+02:00"
+}
+{
+  "file": "provider.go:107",
+  "func": "github.com/SwanHtetAungPhyo/backend/test_mulit/provider.(*logrusWriter).Write()",
+  "message": "[2025-05-15T20:01:48Z] 500 - GET /favicon.ico    2.011667ms\n",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:01:48+02:00"
+}
+{
+  "file": "database.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Successfully connected to the database",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:02:31+02:00"
+}
+{
+  "file": "server.go:102",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "Starting auth lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:02:31+02:00"
+}
+{
+  "file": "server.go:56",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "starting auth server on port /Users/swanhtet1aungphyo/GolandProjects/Backends/cmd/auth/certificates/key.pem",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:02:31+02:00"
+}
+{
+  "file": "server.go:107",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "auth lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:02:31+02:00"
+}
+{
+  "file": "main.go:72",
+  "func": "main.main.func1.1()",
+  "message": "Application started",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:02:31+02:00"
+}
+{
+  "file": "database.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Successfully connected to the database",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:03:21+02:00"
+}
+{
+  "file": "server.go:102",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "Starting auth lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:03:21+02:00"
+}
+{
+  "file": "server.go:56",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "starting auth server on port /Users/swanhtet1aungphyo/GolandProjects/Backends/cmd/auth/certificates/key.pem",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:03:21+02:00"
+}
+{
+  "file": "server.go:107",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "auth lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:03:21+02:00"
+}
+{
+  "file": "main.go:72",
+  "func": "main.main.func1.1()",
+  "message": "Application started",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:03:21+02:00"
+}
+{
+  "file": "provider.go:108",
+  "func": "github.com/SwanHtetAungPhyo/backend/test_mulit/provider.(*logrusWriter).Write()",
+  "message": "[2025-05-15T20:03:26Z] 200 - GET /     604.417µs\n",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:03:26+02:00"
+}
+{
+  "file": "provider.go:81",
+  "func": "github.com/SwanHtetAungPhyo/backend/test_mulit/provider.NewFiberApp.func1()",
+  "message": "Request failed: Cannot GET /favicon.ico",
+  "path": "/favicon.ico",
+  "severity": "error",
+  "timestamp": "2025-05-15T22:03:27+02:00"
+}
+{
+  "file": "provider.go:108",
+  "func": "github.com/SwanHtetAungPhyo/backend/test_mulit/provider.(*logrusWriter).Write()",
+  "message": "[2025-05-15T20:03:27Z] 500 - GET /favicon.ico    1.595333ms\n",
+  "severity": "info",
+  "timestamp": "2025-05-15T22:03:27+02:00"
+}

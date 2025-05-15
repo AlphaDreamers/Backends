@@ -31,6 +31,12 @@ func NewServerState(
 	handler *auth.Handler,
 ) *ServerState {
 	fiberApp := provider.NewFiberApp(v, log, "auth")
+	fiberApp.Get("/", func(c *fiber.Ctx) error {
+		return c.Render("index", fiber.Map{
+			"Title":   "Cover Application",
+			"Message": "We are the freelance platform which offers the user security with KYC verification, biometrics, and crypto payments.",
+		})
+	})
 	fiberApp.Get("/auth/status", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{"status": "auth server running"})
 	})

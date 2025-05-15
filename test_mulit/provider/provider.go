@@ -6,6 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	flog "github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/template/html/v2"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -58,8 +59,15 @@ func SetLogger(v *viper.Viper) *logrus.Logger {
 // NewFiberApp creates a Fiber app with basic configuration
 func NewFiberApp(v *viper.Viper, logger *logrus.Logger, prefix string) *fiber.App {
 	isProduction := v.GetString("app.env") == "production"
-
+	pwd, err := os.Getwd()
+	if err != nil {
+		logger.Fatal(err.Error())
+	}
+	viewPath := pwd + "/cmd" + "/views"
+	logrus.Info("View path: " + viewPath)
+	views := html.New(viewPath, ".html")
 	app := fiber.New(fiber.Config{
+		Views:                 views,
 		DisableStartupMessage: isProduction,
 		ServerHeader:          v.GetString(prefix + ".header"),
 		AppName:               v.GetString(prefix + ".name"),

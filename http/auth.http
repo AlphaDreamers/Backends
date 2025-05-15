@@ -28,3 +28,7 @@ Content-Type: application/json
   "email": "swanhtetaungp@gmail.com",
   "password": "SecureP@ssw0rd!"
 }
+
+### POST Log Out
+POST {{url}}/auth/log-out
+Authorization: {{claim_access}}
