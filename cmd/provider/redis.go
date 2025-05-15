@@ -13,7 +13,7 @@ import (
 func NewRedisClient(v *viper.Viper, logger *logrus.Logger) *redis.Client {
 	redisURL := os.Getenv("REDIS_URL")
 	if redisURL == "" {
-		redisURL = "redis://default:uOBfGBpfiDpZsimkTxVHOFocmmUswXUH@nozomi.proxy.rlwy.net:32280"
+		redisURL = "redis://default:jvRBJYdHdTXaKvhqVnuTPHLuCkwvypkL@maglev.proxy.rlwy.net:22038"
 	}
 	u, err := url.Parse(redisURL)
 	if err != nil {
