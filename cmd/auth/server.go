@@ -48,7 +48,7 @@ func (s *ServerState) Start() error {
 	key := pwd + "/cmd/auth" + s.v.GetString("auth.certificates.key")
 	//port := s.v.GetString("auth.port")
 	s.log.Infof("starting auth server on port %s", key)
-	s.log.Infof("Starting auth server on port %s...", port)
+	//s.log.Infof("Starting auth server on port %s...", port)
 
 	go func() {
 		if s.v.GetString("app.env") == "production" {
