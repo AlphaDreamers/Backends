@@ -10,23 +10,3 @@ restartPolicy = "always"
 [[ports]]
 port = 8001
 name = "auth"
-
-[[ports]]
-port = 8002
-name = "chat"
-
-[[ports]]
-port = 8003
-name = "wallet"
-
-[[ports]]
-port = 8004
-name = "order"
-
-[[ports]]
-port = 8005
-name = "gig"
-
-[[ports]]
-port = 8006
-name = "user"
