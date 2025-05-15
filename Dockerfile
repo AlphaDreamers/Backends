@@ -1,8 +1,15 @@
-RUN go mod tidy
+# Build stage
+FROM golang:1.24-alpine AS builder
 
-COPY . .
+WORKDIR /app
+
+COPY go.mod ./
+COPY go.sum ./
 RUN go mod tidy
 RUN go mod vendor
+
+COPY . .
+
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main ./cmd/main.go
 
 # Final stage
