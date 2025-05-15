@@ -32,7 +32,7 @@ aws:
     local: "host=postgres user=postgres password=postgres dbname=appDatabase sslmode=disable"
 
 auth:
-  port: "30011"
+  port: "8001"
   name: "AuthServer"
   header: "auth-cognito"
   disableStartupMessage: false

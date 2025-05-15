@@ -8,7 +8,6 @@ import (
 	ah "github.com/SwanHtetAungPhyo/backend/internal/handler/auth"
 	ar "github.com/SwanHtetAungPhyo/backend/internal/repo/auth"
 	as "github.com/SwanHtetAungPhyo/backend/internal/service/auth"
-	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"go.uber.org/fx"
@@ -52,9 +51,9 @@ func LoadConfig() *viper.Viper {
 }
 
 func main() {
-	if err := godotenv.Load(".env"); err != nil {
-		logrus.Fatalf("Error loading .env file: %v", err.Error())
-	}
+	//if err := godotenv.Load(".env"); err != nil {
+	//	logrus.Fatalf("Error loading .env file: %v", err.Error())
+	//}
 	app := fx.New(
 		fx.Provide(LoadConfig),
 		provider.ProviderModule,
