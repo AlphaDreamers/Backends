@@ -1,21 +1,33 @@
-version: 2
-services:
-  - type: web
-    name: myapp
-    env: docker
-    region: eu-west
-    plan: starter
-    healthCheckPath: /
-    ports:
-      - port: 8001
-        name: auth
-      - port: 8002
-        name: chat
-      - port: 8003
-        name: wallet
-      - port: 8004
-        name: order
-      - port: 8005
-        name: gig
-      - port: 8006
-        name: user
+[build]
+builder = "nixpacks"
+buildCommand = "echo Building using Dockerfile..."
+
+[deploy]
+startCommand = ""
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "on-failure"
+
+[[ports]]
+port = 8001
+name = "auth"
+
+[[ports]]
+port = 8002
+name = "chat"
+
+[[ports]]
+port = 8003
+name = "wallet"
+
+[[ports]]
+port = 8004
+name = "order"
+
+[[ports]]
+port = 8005
+name = "gig"
+
+[[ports]]
+port = 8006
+name = "user"
