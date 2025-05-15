@@ -6,12 +6,15 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"net/url"
+	"os"
 	"strconv"
 )
 
 func NewRedisClient(v *viper.Viper, logger *logrus.Logger) *redis.Client {
-	redisURL := "redis://default:uOBfGBpfiDpZsimkTxVHOFocmmUswXUH@nozomi.proxy.rlwy.net:32280"
-
+	redisURL := os.Getenv("REDIS_URL")
+	if redisURL == "" {
+		redisURL = "redis://default:uOBfGBpfiDpZsimkTxVHOFocmmUswXUH@nozomi.proxy.rlwy.net:32280"
+	}
 	u, err := url.Parse(redisURL)
 	if err != nil {
 		logger.Fatalf("invalid redis URL: %v", err)

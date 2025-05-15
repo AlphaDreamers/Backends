@@ -307,7 +307,7 @@ type Review struct {
 func (Review) TableName() string { return "Review" }
 
 func InitDB() error {
-	dsn := "postgresql://postgres:fthJJPgFAjSthmHRvIfIQQcdiHCfbexz@yamabiko.proxy.rlwy.net:13336/railway"
+	dsn := "postgresql://postgres:oyTGiqfEJpNfxbVKpfSTpSvBDioTehEg@gondola.proxy.rlwy.net:26442/railway"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err.Error())

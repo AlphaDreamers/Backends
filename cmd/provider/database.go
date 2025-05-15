@@ -1,6 +1,7 @@
 package provider
 
 import (
+	"os"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -14,51 +15,46 @@ func GormPostgres(v *viper.Viper, log *logrus.Logger) *gorm.DB {
 	var db *gorm.DB
 	var err error
 
-	// Get database configuration from viper
-	host := v.GetString("database.host")
-	port := v.GetString("database.port")
-	user := v.GetString("database.user")
-	password := v.GetString("database.password")
-	dbname := v.GetString("database.name")
-	sslmode := v.GetString("database.sslmode")
-
-	// If any of these are empty, use defaults
-	if host == "" {
-		host = "postgres"
-	}
-
-	if port == "" {
-		port = "5432"
-	}
-	if user == "" {
-		user = "postgres"
-	}
-
-	if password == "" {
-		password = "postgres"
-	}
-	if dbname == "" {
-		dbname = "appDatabase"
-	}
-	if sslmode == "" {
-		sslmode = "disable"
-	}
+	//// If any of these are empty, use defaults
+	//if host == "" {
+	//	host = "postgres"
+	//}
+	//
+	//if port == "" {
+	//	port = "5432"
+	//}
+	//if user == "" {
+	//	user = "postgres"
+	//}
+	//
+	//if password == "" {
+	//	password = "postgres"
+	//}
+	//if dbname == "" {
+	//	dbname = "appDatabase"
+	//}
+	//if sslmode == "" {
+	//	sslmode = "disable"
+	//}
 
 	// Build connection string
 	//dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 	//	host, port, user, password, dbname, sslmode)
 	//
 
-	log.Infof("Attempting to connect to database with DSN: host=%s port=%s user=%s dbname=%s sslmode=%s password=%s",
-		host, port, user, dbname, sslmode, password)
-
+	//log.Infof("Attempting to connect to database with DSN: host=%s port=%s user=%s dbname=%s sslmode=%s password=%s",
+	//	host, port, user, dbname, sslmode, password)
+	dsn := os.Getenv("POSTGRES_URL")
+	if dsn == "" {
+		dsn = "postgresql://postgres:fthJJPgFAjSthmHRvIfIQQcdiHCfbexz@yamabiko.proxy.rlwy.net:13336/railway"
+	}
 	maxAttempts := v.GetInt("database.max_attempts")
 	if maxAttempts <= 0 {
 		maxAttempts = 10
 	}
 
 	for i := 0; i < maxAttempts; i++ {
-		db, err = gorm.Open(postgres.Open("postgresql://postgres:fthJJPgFAjSthmHRvIfIQQcdiHCfbexz@yamabiko.proxy.rlwy.net:13336/railway"), &gorm.Config{
+		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
 			NamingStrategy: schema.NamingStrategy{
 				SingularTable: true,
 			},

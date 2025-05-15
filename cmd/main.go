@@ -92,7 +92,10 @@ func main() {
 	}()
 
 	if err := app.Start(context.Background()); err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to start app: %v\n", err)
+		_, err2 := fmt.Fprintf(os.Stderr, "Failed to start app: %v\n", err)
+		if err2 != nil {
+			return
+		}
 		os.Exit(1)
 	}
 

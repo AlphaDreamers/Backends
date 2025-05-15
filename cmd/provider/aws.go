@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/rekognition"
@@ -11,15 +12,28 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/textract"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
+	"os"
 )
 
 func AwsConfig(v *viper.Viper, log *logrus.Logger) *aws.Config {
 	region := v.GetString("aws.region")
+	accessKey := os.Getenv("ACESS_KEY_ID")
+	secretKey := os.Getenv("SECRECT_ACCESS_KEY")
+	if accessKey == "" || secretKey == "" {
+		accessKey = "AKIASLOWJDYKFUE75IRH"
+		secretKey = "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"
+	}
 	cfg, err := config.LoadDefaultConfig(
 		context.Background(),
-		config.WithRegion(region))
+		config.WithRegion(region),
+		config.WithCredentialsProvider(
+			credentials.NewStaticCredentialsProvider(
+				accessKey,
+				secretKey,
+				"",
+			)))
 	if err != nil {
-		log.WithError(err).Fatal("failed to load aws config")
+		log.Fatal(err.Error())
 	}
 	return &cfg
 }
