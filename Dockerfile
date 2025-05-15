@@ -1,3 +1,4 @@
+
 FROM golang:1.24-alpine AS builder
 
 WORKDIR /app
@@ -10,7 +11,7 @@ COPY . .
 
 RUN go build -o main ./cmd/main.go
 
-
+# Final stage
 FROM alpine:latest
 
 RUN apk add --no-cache nginx supervisor
