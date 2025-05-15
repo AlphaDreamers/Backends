@@ -1,7 +1,6 @@
 package provider
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -27,12 +26,14 @@ func GormPostgres(v *viper.Viper, log *logrus.Logger) *gorm.DB {
 	if host == "" {
 		host = "postgres"
 	}
+
 	if port == "" {
 		port = "5432"
 	}
 	if user == "" {
 		user = "postgres"
 	}
+
 	if password == "" {
 		password = "postgres"
 	}
@@ -44,8 +45,9 @@ func GormPostgres(v *viper.Viper, log *logrus.Logger) *gorm.DB {
 	}
 
 	// Build connection string
-	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
-		host, port, user, password, dbname, sslmode)
+	//dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+	//	host, port, user, password, dbname, sslmode)
+	//
 
 	log.Infof("Attempting to connect to database with DSN: host=%s port=%s user=%s dbname=%s sslmode=%s password=%s",
 		host, port, user, dbname, sslmode, password)
@@ -56,7 +58,7 @@ func GormPostgres(v *viper.Viper, log *logrus.Logger) *gorm.DB {
 	}
 
 	for i := 0; i < maxAttempts; i++ {
-		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
+		db, err = gorm.Open(postgres.Open("postgresql://postgres:fthJJPgFAjSthmHRvIfIQQcdiHCfbexz@yamabiko.proxy.rlwy.net:13336/railway"), &gorm.Config{
 			NamingStrategy: schema.NamingStrategy{
 				SingularTable: true,
 			},
