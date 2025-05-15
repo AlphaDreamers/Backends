@@ -54,7 +54,7 @@ func GormPostgres(v *viper.Viper, log *logrus.Logger) *gorm.DB {
 	}
 
 	for i := 0; i < maxAttempts; i++ {
-		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
+		db, err = gorm.Open(postgres.Open("postgresql://postgres:fthJJPgFAjSthmHRvIfIQQcdiHCfbexz@yamabiko.proxy.rlwy.net:13336/railway"), &gorm.Config{
 			NamingStrategy: schema.NamingStrategy{
 				SingularTable: true,
 			},
