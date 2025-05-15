@@ -51,25 +51,25 @@ func (s *ServerState) Start() error {
 	s.log.Infof("Starting auth server on port %s...", port)
 
 	go func() {
-		//if s.v.GetString("app.env") == "production" {
-		s.setUpOrderRoutes()
-		s.setupAuthRoutes()
-		s.setUpChatRoutes()
-		s.setUpGigRoutes()
-		s.setUpPaymentRoutes()
-		if err := s.fiberApp.ListenTLS(":"+port, cert, key); err != nil {
-			s.log.Errorf("Failed to start auth server: %v", err)
+		if s.v.GetString("app.env") == "production" {
+			s.setUpOrderRoutes()
+			s.setupAuthRoutes()
+			s.setUpChatRoutes()
+			s.setUpGigRoutes()
+			s.setUpPaymentRoutes()
+			if err := s.fiberApp.ListenTLS(":"+port, cert, key); err != nil {
+				s.log.Errorf("Failed to start auth server: %v", err)
+			}
+		} else {
+			s.setUpOrderRoutes()
+			s.setupAuthRoutes()
+			s.setUpChatRoutes()
+			s.setUpGigRoutes()
+			s.setUpPaymentRoutes()
+			if err := s.fiberApp.Listen(":" + port); err != nil {
+				s.log.Errorf("Failed to start auth server: %v", err)
+			}
 		}
-		//} else {
-		//	s.setUpOrderRoutes()
-		//	s.setupAuthRoutes()
-		//	s.setUpChatRoutes()
-		//	s.setUpGigRoutes()
-		//	s.setUpPaymentRoutes()
-		//	if err := s.fiberApp.Listen(":" + port); err != nil {
-		//		s.log.Errorf("Failed to start auth server: %v", err)
-		//	}
-		//}
 	}()
 	return nil
 }
