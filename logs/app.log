@@ -530,3 +530,150 @@
   "severity": "info",
   "timestamp": "2025-05-15T01:53:24+02:00"
 }
+{
+  "file": "database.go:50",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Attempting to connect to database with DSN: host=localhost port=5432 user=postgres dbname=appDatabase sslmode=disable password=postgres",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "database.go:95",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/provider.GormPostgres()",
+  "message": "Successfully connected to the database",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:86",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "Starting auth lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:51",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.(*ServerState).Start()",
+  "message": "Starting auth server on port 30011...",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:91",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/auth.RegisterLifeCycle.func1()",
+  "message": "auth lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:88",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/chat.RegisterLifeCycle.func1()",
+  "message": "Starting chat lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:53",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/chat.(*ServerState).Start()",
+  "message": "Starting chat server on port 30012...",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/chat.RegisterLifeCycle.func1()",
+  "message": "chat lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:88",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/gig.RegisterLifeCycle.func1()",
+  "message": "Starting gig lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:53",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/gig.(*ServerState).Start()",
+  "message": "Starting gig server on port 30013...",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/gig.RegisterLifeCycle.func1()",
+  "message": "gig lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:88",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/wallet.RegisterLifeCycle.func1()",
+  "message": "Starting wallet lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:53",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/wallet.(*ServerState).Start()",
+  "message": "Starting wallet server on port 30014...",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/wallet.RegisterLifeCycle.func1()",
+  "message": "wallet lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:88",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/order.RegisterLifeCycle.func1()",
+  "message": "Starting order lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:53",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/order.(*ServerState).Start()",
+  "message": "Starting order server on port 30015...",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/order.RegisterLifeCycle.func1()",
+  "message": "order lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:88",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/user.RegisterLifeCycle.func1()",
+  "message": "Starting user lifecycle...",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:53",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/user.(*ServerState).Start()",
+  "message": "Starting user server on port 30016...",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "server.go:93",
+  "func": "github.com/SwanHtetAungPhyo/backend/cmd/user.RegisterLifeCycle.func1()",
+  "message": "user lifecycle started.",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}
+{
+  "file": "main.go:74",
+  "func": "main.main.func1.1()",
+  "message": "Application started",
+  "severity": "info",
+  "timestamp": "2025-05-15T02:10:33+02:00"
+}

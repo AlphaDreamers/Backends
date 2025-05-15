@@ -1,5 +1,28 @@
 
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: go-app
+    ports:
+      - "8001:8001"
+      - "8002:8002"
+      - "8003:8003"
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - app-network
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: appDatabase
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
   postgres:
     image: postgres:latest
     container_name: postgres-container

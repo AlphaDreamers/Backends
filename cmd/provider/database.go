@@ -25,7 +25,7 @@ func GormPostgres(v *viper.Viper, log *logrus.Logger) *gorm.DB {
 
 	// If any of these are empty, use defaults
 	if host == "" {
-		host = "localhost"
+		host = "postgres"
 	}
 	if port == "" {
 		port = "5432"

@@ -29,7 +29,7 @@ aws:
     url: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_86rLqWz2S/.well-known/openid-configuration"
   rds:
     dsn: "host=database-1.cm9ewocwci8f.us-east-1.rds.amazonaws.com user=postgres password=Swanhtetaungphyo dbname=postgres port=5432 sslmode=require"
-    local: "host=localhost user=postgres password=postgres dbname=appDatabase sslmode=disable"
+    local: "host=postgres user=postgres password=postgres dbname=appDatabase sslmode=disable"
 
 auth:
   port: "30011"
@@ -70,7 +70,7 @@ chat:
     key: "/certificates/key.pem"
 
 gig:
-  port: "30013"
+  port: "8001"
   name: "GigServer"
   header: "gig-server"
   disableStartupMessage: false
@@ -89,7 +89,7 @@ gig:
     key: "/certificates/key.pem"
 
 wallet:
-  port: "30014"
+  port: "8002"
   name: "WalletServer"
   header: "wallet-server"
   disableStartupMessage: false
@@ -108,7 +108,7 @@ wallet:
     key: "/certificates/key.pem"
 
 order:
-  port: "30015"
+  port: "8003"
   name: "OrderServer"
   header: "order-server"
   disableStartupMessage: false
@@ -146,7 +146,7 @@ user:
     key: "/certificates/key.pem"
 
 database:
-  host: localhost
+  host: postgres
   port: 5432
   user: postgres
   password: postgres  # Make sure this matches your actual PostgreSQL password
@@ -156,3 +156,9 @@ database:
   max_idle_conns: 10
   max_open_conns: 100
   conn_max_lifetime: 1h
+
+
+redis:
+  addr: redis
+  password: ""
+  db: ""
