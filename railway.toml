@@ -29,4 +29,4 @@ name = "gig"
 
 [[ports]]
 port = 8006
-name = "user
+name = "user"
