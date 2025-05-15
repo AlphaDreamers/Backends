@@ -2,10 +2,10 @@ POST  {{url}}/auth/sign-up
 Content-Type: application/json
 
 {
-  "firstName": "Swan Htet Aung Phyo",
+  "firstName": "Aung Zayar Moe",
   "lastName": "One",
   "username": "Swanhtet12@",
-  "email": "swanhtetaungp@gmail.com",
+  "email": "son775697@gmail.com",
   "password": "SecureP@ssw0rd!",
   "country": "United State USA",
   "bioMetricHash": "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
@@ -16,8 +16,8 @@ POST  {{url}}/auth/verify-email
 Content-Type: application/json
 
 {
-  "email": "swanhtetaungp@gmail.com",
-  "code": "680253"
+  "email": "son775697@gmail.com",
+  "code": "308448"
 }
 
 ### POST Sign In
