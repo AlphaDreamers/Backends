@@ -33,7 +33,7 @@ func NewServerState(
 	v *viper.Viper,
 ) *ServerState {
 	fiberApp := provider.NewFiberApp(v, log, "chat")
-	// Define a basic endpoint for the chat server
+
 	fiberApp.Get("/chat/status", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{"status": "chat server running"})
 	})
@@ -48,7 +48,7 @@ func (s *ServerState) Start() error {
 	pwd, _ := os.Getwd()
 	cert := pwd + s.v.GetString("chat.certificate.cert")
 	key := pwd + s.v.GetString("chat.certificate.key")
-	port := s.v.GetString("chat.port")
+	port := os.Getenv("CHAT_PORT")
 
 	s.log.Infof("Starting chat server on port %s...", port)
 

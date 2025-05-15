@@ -48,7 +48,7 @@ func (s *ServerState) Start() error {
 	pwd, _ := os.Getwd()
 	cert := pwd + s.v.GetString("user.certificate.cert")
 	key := pwd + s.v.GetString("user.certificate.key")
-	port := s.v.GetString("user.port")
+	port := os.Getenv("USER_PORT")
 
 	s.log.Infof("Starting user server on port %s...", port)
 

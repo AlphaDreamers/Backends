@@ -1,15 +1,32 @@
-FROM golang:1.24-alpine
+# Use Go to build your app
+FROM golang:1.24-alpine AS builder
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
-RUN go mod tidy
+COPY go.mod ./
+COPY go.sum ./
+RUN go mod download
 
 COPY . .
 
-RUN go build -o main ./cmd/main.go
+RUN go build -o main .
 
-EXPOSE 8001 8002 8003
+# Final image
+FROM alpine:latest
 
-# Run the compiled binary
-CMD ["./main"]
+RUN apk add --no-cache nginx supervisor
+
+WORKDIR /app
+
+COPY --from=builder /app/main .
+
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY supervisord.conf /etc/supervisord.conf
+
+RUN mkdir -p /run/nginx && \
+    touch /run/nginx/nginx.pid && \
+    mkdir -p /var/log/nginx
+
+EXPOSE 80
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

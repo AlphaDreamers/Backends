@@ -46,7 +46,7 @@ func (s *ServerState) Start() error {
 	pwd, _ := os.Getwd()
 	cert := pwd + s.v.GetString("auth.certificate.cert")
 	key := pwd + s.v.GetString("auth.certificate.key")
-	port := s.v.GetString("auth.port")
+	port := os.Getenv("AUTH_PORT")
 
 	s.log.Infof("Starting auth server on port %s...", port)
 

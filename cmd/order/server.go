@@ -48,7 +48,7 @@ func (s *ServerState) Start() error {
 	pwd, _ := os.Getwd()
 	cert := pwd + s.v.GetString("order.certificate.cert")
 	key := pwd + s.v.GetString("order.certificate.key")
-	port := s.v.GetString("order.port")
+	port := os.Getenv("ORDER_PORT")
 
 	s.log.Infof("Starting order server on port %s...", port)
 
