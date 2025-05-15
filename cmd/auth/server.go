@@ -52,10 +52,12 @@ func (s *ServerState) Start() error {
 
 	go func() {
 		if s.v.GetString("app.env") == "production" {
+			s.setupRoutes()
 			if err := s.fiberApp.ListenTLS(":"+port, cert, key); err != nil {
 				s.log.Errorf("Failed to start auth server: %v", err)
 			}
 		} else {
+			s.setupRoutes()
 			if err := s.fiberApp.Listen(":" + port); err != nil {
 				s.log.Errorf("Failed to start auth server: %v", err)
 			}
