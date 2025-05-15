@@ -1,4 +1,3 @@
-# Use Go to build your app
 FROM golang:1.24-alpine AS builder
 
 WORKDIR /app
@@ -9,9 +8,9 @@ RUN go mod tidy
 
 COPY . .
 
-RUN go build -o main .
+RUN go build -o main ./cmd/main.go
 
-# Final image
+
 FROM alpine:latest
 
 RUN apk add --no-cache nginx supervisor
