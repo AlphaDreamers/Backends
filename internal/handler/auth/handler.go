@@ -92,6 +92,12 @@ func (h Handler) SignIn(c *fiber.Ctx) error {
 	//userData.IdTOKEN = model.IdTOKEN{
 	//	IdToken: *respFromC.AuthenticationResult.IdToken,
 	//}
+	userData.AccessToken = model.AccessToken{
+		AccessToken: *respFromC.AuthenticationResult.AccessToken,
+	}
+	userData.IdTOKEN = model.IdTOKEN{
+		IdToken: *respFromC.AuthenticationResult.IdToken,
+	}
 	return c.JSON(model.Response{
 		Message: "OK",
 		Data:    userData,

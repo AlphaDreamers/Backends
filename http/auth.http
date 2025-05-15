@@ -10,3 +10,21 @@ Content-Type: application/json
   "country": "United State USA",
   "bioMetricHash": "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
 }
+
+### POST Confirm email
+POST  {{url}}/auth/verify-email
+Content-Type: application/json
+
+{
+  "email": "swanhtetaungp@gmail.com",
+  "code": "680253"
+}
+
+### POST Sign In
+POST {{url}}/auth/sign-in
+Content-Type: application/json
+
+{
+  "email": "swanhtetaungp@gmail.com",
+  "password": "SecureP@ssw0rd!"
+}
