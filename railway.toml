@@ -6,6 +6,16 @@ services:
     region: eu-west
     plan: starter
     healthCheckPath: /
-    envVars:
-      - key: PORT
-        value: 80
+    ports:
+      - port: 8001
+        name: auth
+      - port: 8002
+        name: chat
+      - port: 8003
+        name: wallet
+      - port: 8004
+        name: order
+      - port: 8005
+        name: gig
+      - port: 8006
+        name: user
