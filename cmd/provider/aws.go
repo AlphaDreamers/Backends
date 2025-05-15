@@ -19,10 +19,6 @@ func AwsConfig(v *viper.Viper, log *logrus.Logger) *aws.Config {
 	region := v.GetString("aws.region")
 	accessKey := os.Getenv("ACESS_KEY_ID")
 	secretKey := os.Getenv("SECRECT_ACCESS_KEY")
-	//if accessKey == "" || secretKey == "" {
-	//	accessKey = "AKIASLOWJDYKFUE75IRH"
-	//	secretKey = "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"
-	//}
 	cfg, err := config.LoadDefaultConfig(
 		context.Background(),
 		config.WithRegion(region),
