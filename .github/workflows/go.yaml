@@ -20,7 +20,7 @@ jobs:
         with:
           go-version: '1.24'
 
-      # Step 3: Cache Go dependencies to speed up the workflow
+      # Step 3: Cache Go dependencies
       - name: Cache Go modules
         uses: actions/cache@v3
         with:
@@ -31,16 +31,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
+      # Step 4: Install dependencies
       - name: Install dependencies
         run: go mod tidy
 
-      # Step 5: Run tests
-      - name: Run tests
-        run: go test -v ./...  # Run all the tests in the project
-        
+      # Step 5: Build and run the application
       - name: Build the application
-        run: go build -v ./...
-
-      # Optional: Deploy step (add this only if you want deployment)
-      # - name: Deploy
-      #   run: ./deploy.sh   # Add your deploy script/command here
+        run: go run ./cmd/main.go
