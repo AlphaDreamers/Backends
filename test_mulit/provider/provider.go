@@ -4,6 +4,7 @@ package provider
 import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	flog "github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/sirupsen/logrus"
@@ -93,6 +94,12 @@ func NewFiberApp(v *viper.Viper, logger *logrus.Logger, prefix string) *fiber.Ap
 		TimeFormat: time.RFC3339,
 		TimeZone:   "UTC",
 		Output:     &logrusWriter{logger: logger},
+	}))
+	app.Use(cors.New(cors.Config{
+		AllowOrigins:     "*",
+		AllowMethods:     "GET,POST,PUT,DELETE,OPTIONS,PATCH",
+		AllowHeaders:     "*",
+		AllowCredentials: true,
 	}))
 
 	return app
