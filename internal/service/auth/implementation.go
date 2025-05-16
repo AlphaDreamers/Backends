@@ -57,14 +57,14 @@ func (a Service) SignUp(req *model.UserSignUpRequest) error {
 				Name:  aws.String("family_name"),
 				Value: aws.String(req.LastName),
 			},
-			{
-				Name:  aws.String("custom:country"),
-				Value: aws.String(req.Country),
-			},
-			{
-				Name:  aws.String("custom:bio_metric_hash"),
-				Value: aws.String(req.BioMetricHash),
-			},
+			//{
+			//	Name:  aws.String("custom:country"),
+			//	Value: aws.String(req.Country),
+			//},
+			//{
+			//	Name:  aws.String("custom:bio_metric_hash"),
+			//	Value: aws.String(req.BioMetricHash),
+			//},
 		},
 	}
 
