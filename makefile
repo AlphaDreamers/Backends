@@ -196,3 +196,15 @@ generate:
 	@echo "$(YELLOW)⚙️ Running go generate...$(NC)"
 	@$(GO) generate ./...
 	@echo "$(GREEN)✅ Generation completed$(NC)"
+
+.PHONY: user-pool
+user-pool:
+	@aws cognito-idp create-user-pool \
+		--pool-name my-user-pool \
+		--schema '[ \
+			{ "Name": "email", "AttributeDataType": "String", "Mutable": true, "Required": true }, \
+			{ "Name": "given_name", "AttributeDataType": "String", "Mutable": true, "Required": false }, \
+			{ "Name": "family_name", "AttributeDataType": "String", "Mutable": true, "Required": false }, \
+			{ "Name": "custom:country", "AttributeDataType": "String", "StringAttributeConstraints": { "MinLength": "2", "MaxLength": "56" }, "Mutable": true, "Required": false }, \
+			{ "Name": "custom:bio_hash", "AttributeDataType": "String", "StringAttributeConstraints": { "MinLength": "1", "MaxLength": "128" }, "Mutable": true, "Required": false } \
+		]'
