@@ -96,9 +96,10 @@ func NewFiberApp(v *viper.Viper, logger *logrus.Logger, prefix string) *fiber.Ap
 		Output:     &logrusWriter{logger: logger},
 	}))
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: "*",
-		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS,PATCH",
-		AllowHeaders: "*",
+		AllowOrigins:     "http://localhost:3000",
+		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
+		AllowMethods:     "GET, POST, PUT, DELETE, OPTIONS",
+		AllowCredentials: true,
 	}))
 
 	return app
