@@ -301,7 +301,7 @@ func (a Service) ResetPasswordConfirm(email, confirmationCode, newPassword strin
 }
 
 func (a Service) genSecretHash(username string) string {
-	key := []byte("o5v3vvjs4fkstemagnagjiu0bii4le943v0gfviohig3utdqkh3")
+	key := []byte("1sa1nva5h3a0f11esvr4m051ui9u6khlnhjkipc5hgkqufiojdmf")
 	message := []byte(username + a.clientId)
 	mac := hmac.New(sha256.New, key)
 	mac.Write(message)
