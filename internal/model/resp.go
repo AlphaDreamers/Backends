@@ -15,3 +15,7 @@ type SignUpMetaData struct {
 	UserId      string `json:"userId"`
 	AccessToken string `json:"accessToken"`
 }
+
+type Test struct {
+	Message string `json:"message"`
+}
