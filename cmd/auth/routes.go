@@ -41,6 +41,12 @@ func (s *ServerState) setUpGigRoutes() {
 			"message": "OK from gig service",
 		})
 	})
+
+	gigGroup.Post("/:userId", s.gigHandler.CreateGig)
+	gigGroup.Put("/:userId/:gigId/", s.gigHandler.UpdateGigByUserId)
+	gigGroup.Delete("/:userId/:gigId", s.gigHandler.DeleteGig)
+	gigGroup.Get("/:userid/:gigId", s.gigHandler.GetSpecificGigByUserId)
+	gigGroup.Get("/:userid/", s.gigHandler.GetAllGigsByUserId)
 }
 
 func (s *ServerState) setUpOrderRoutes() {
@@ -51,6 +57,8 @@ func (s *ServerState) setUpOrderRoutes() {
 			"message": "OK from order service",
 		})
 	})
+	//orderGroup.Post("/")
+	//orderGroup.Delete("/")
 }
 
 func (s *ServerState) setUpPaymentRoutes() {
@@ -71,4 +79,6 @@ func (s *ServerState) setUpWalletRoutes() {
 			"message": "OK from wallet service",
 		})
 	})
+	walletGroup.Post("/:userId")
+
 }

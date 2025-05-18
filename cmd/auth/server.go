@@ -3,6 +3,7 @@ package auth
 import (
 	"context"
 	"github.com/SwanHtetAungPhyo/backend/internal/handler/auth"
+	"github.com/SwanHtetAungPhyo/backend/internal/handler/gig"
 	"github.com/SwanHtetAungPhyo/backend/test_mulit/provider"
 	"os"
 	"time"
@@ -19,10 +20,11 @@ var ServerStateModule = fx.Module("auth",
 )
 
 type ServerState struct {
-	log      *logrus.Logger
-	fiberApp *fiber.App
-	v        *viper.Viper
-	handler  *auth.Handler
+	log        *logrus.Logger
+	fiberApp   *fiber.App
+	v          *viper.Viper
+	handler    *auth.Handler
+	gigHandler *gig.Handler
 }
 
 func NewServerState(

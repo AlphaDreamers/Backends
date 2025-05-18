@@ -25,8 +25,8 @@ POST {{url}}/auth/sign-in
 Content-Type: application/json
 
 {
-  "email": "swanhtetaungp@gmail.com",
-  "password": "SecureP@ssw0rd!"
+  "email": "swanhtet102002@gmail.com",
+  "password": "Swanhtet@1"
 }
 
 ### POST Log Out
