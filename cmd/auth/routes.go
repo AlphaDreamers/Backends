@@ -42,11 +42,11 @@ func (s *ServerState) setUpGigRoutes() {
 		})
 	})
 
-	gigGroup.Post("/:userId", s.gigHandler.CreateGig)
-	gigGroup.Put("/:userId/:gigId/", s.gigHandler.UpdateGigByUserId)
-	gigGroup.Delete("/:userId/:gigId", s.gigHandler.DeleteGig)
-	gigGroup.Get("/:userid/:gigId", s.gigHandler.GetSpecificGigByUserId)
-	gigGroup.Get("/:userid/", s.gigHandler.GetAllGigsByUserId)
+	//gigGroup.Post("/:userId", s.gigHandler.CreateGig)
+	//gigGroup.Put("/:userId/:gigId/", s.gigHandler.UpdateGigByUserId)
+	//gigGroup.Delete("/:userId/:gigId", s.gigHandler.DeleteGig)
+	//gigGroup.Get("/:userid/:gigId", s.gigHandler.GetSpecificGigByUserId)
+	//gigGroup.Get("/:userid/", s.gigHandler.GetAllGigsByUserId)
 }
 
 func (s *ServerState) setUpOrderRoutes() {
